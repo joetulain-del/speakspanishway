@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speak Spanish Way · Isabel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #1B2140;
+  --navy-mid: #252d52;
+  --navy-card: #2a325f;
+  --orange: #E8681A;
+  --gold: #C9A96E;
+  --cream: #F5F2EC;
+  --cream-dim: rgba(245,242,236,0.55);
+  --cream-muted: rgba(245,242,236,0.25);
+}
+
+body {
+  background: var(--navy);
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 20px 60px;
+  color: var(--cream);
+}
+
+.topbar {
+  width: 100%; max-width: 500px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 36px;
+}
+
+.brand {
+  font-size: 9px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--orange); font-weight: 500;
+}
+
+.prog-text {
+  font-size: 12px; color: var(--cream-muted); font-weight: 300; letter-spacing: 1px;
+}
+
+.dots-row {
+  display: flex; gap: 5px; justify-content: center;
+  flex-wrap: wrap; max-width: 500px; width: 100%;
+  margin-bottom: 36px;
+}
+
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.35s;
+}
+.dot.active { background: var(--orange); box-shadow: 0 0 6px rgba(232,104,26,0.5); }
+.dot.hit    { background: var(--gold); }
+.dot.miss   { background: rgba(255,255,255,0.2); }
+
+/* CARD */
+.scene {
+  perspective: 1400px;
+  width: 100%; max-width: 500px;
+  height: 310px;
+  cursor: pointer;
+  margin-bottom: 28px;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.card-body {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-body.flipped { transform: rotateY(180deg); }
+
+.face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: 20px;
+  padding: 40px 40px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.front {
+  background: var(--cream);
+  color: var(--navy);
+  align-items: center; text-align: center;
+}
+
+.back {
+  background: var(--navy-card);
+  border: 1px solid rgba(201,169,110,0.25);
+  transform: rotateY(180deg);
+}
+
+.face-label {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  font-weight: 500; margin-bottom: 14px;
+}
+.front .face-label { color: var(--orange); }
+.back .face-label  { color: var(--gold); }
+
+.word {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(26px, 6vw, 52px);
+  line-height: 1.1; color: var(--navy);
+  margin-bottom: 10px; letter-spacing: -0.5px;
+}
+
+.tap-hint {
+  font-size: 11px; color: rgba(27,33,64,0.3);
+  letter-spacing: 0.5px; margin-top: 18px;
+}
+
+.def {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(20px, 4.5vw, 28px);
+  line-height: 1.35; color: var(--cream);
+  margin-bottom: 22px;
+}
+
+.example {
+  font-size: 13px; color: var(--cream-dim);
+  font-style: italic; line-height: 1.7;
+  padding-left: 16px;
+  border-left: 2px solid var(--orange);
+}
+
+/* BUTTONS */
+.actions {
+  display: flex; gap: 10px;
+  width: 100%; max-width: 500px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s 0.25s;
+}
+.actions.on { opacity: 1; pointer-events: all; }
+
+.btn {
+  flex: 1; padding: 15px;
+  border-radius: 12px; border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer; letter-spacing: 0.3px;
+  transition: transform 0.12s, opacity 0.12s;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-yes { background: var(--gold); color: var(--navy); }
+.btn-no  {
+  background: transparent; color: var(--cream-muted);
+  border: 1px solid rgba(245,242,236,0.12);
+}
+.btn-no:hover { border-color: rgba(245,242,236,0.25); color: var(--cream-dim); }
+
+/* RESULTS */
+.results {
+  display: none; flex-direction: column;
+  align-items: center; text-align: center;
+  width: 100%; max-width: 500px;
+  animation: up 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.share-card {
+  width: 100%;
+  background: var(--navy-card);
+  border: 1px solid rgba(201,169,110,0.35);
+  border-radius: 24px;
+  padding: 52px 44px 44px;
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--orange), var(--gold), transparent);
+}
+
+.card-score {
+  font-family: 'EB Garamond', serif;
+  font-size: 76px; line-height: 1;
+  color: var(--gold); margin-bottom: 4px;
+  letter-spacing: -2px;
+}
+
+.card-score-label {
+  font-size: 9px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--cream-muted); font-weight: 400; margin-bottom: 40px;
+}
+
+.card-divider {
+  width: 32px; height: 1px;
+  background: rgba(201,169,110,0.4);
+  margin-bottom: 32px;
+}
+
+.card-headline {
+  font-family: 'EB Garamond', serif;
+  font-size: 32px; line-height: 1.25;
+  color: var(--cream); margin-bottom: 10px;
+  font-style: italic;
+}
+
+.card-sub {
+  font-size: 12px; color: var(--cream-muted);
+  letter-spacing: 0.5px; line-height: 1.6;
+  margin-bottom: 44px;
+}
+
+.card-brand {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(201,169,110,0.45); font-weight: 500;
+}
+
+.screenshot-hint {
+  font-size: 11px; color: var(--cream-muted);
+  letter-spacing: 1px; margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.restart-btn {
+  background: transparent; color: var(--cream-muted);
+  border: 1px solid rgba(245,242,236,0.1);
+  border-radius: 12px; padding: 15px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; cursor: pointer; width: 100%;
+  transition: border-color 0.2s, color 0.2s;
+}
+.restart-btn:hover { border-color: rgba(245,242,236,0.22); color: var(--cream-dim); }
+
+.footer {
+  margin-top: 52px; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(245,242,236,0.14); text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand">◆ Speak Spanish Way</span>
+  <span class="prog-text" id="prog">1 / 25</span>
+</div>
+
+<div class="dots-row" id="dots"></div>
+
+<div class="scene" id="scene" onclick="flip()">
+  <div class="card-body" id="cb">
+    <div class="face front">
+      <span class="face-label" id="type">sustantivo</span>
+      <div class="word" id="word">—</div>
+      <span class="tap-hint">Tocá para ver la definición</span>
+    </div>
+    <div class="face back">
+      <span class="face-label">en inglés</span>
+      <div class="def" id="def">—</div>
+      <div class="example" id="ex">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="actions" id="act">
+  <button class="btn btn-no" onclick="ans(false)">Necesito repasar</button>
+  <button class="btn btn-yes" onclick="ans(true)">Lo sabía &nbsp;✓</button>
+</div>
+
+<div class="results" id="res">
+  <div class="share-card">
+    <div class="card-score" id="sNum">—</div>
+    <div class="card-score-label">words down today</div>
+    <div class="card-divider"></div>
+    <div class="card-headline" id="rHeadline">—</div>
+    <div class="card-sub" id="rSub">—</div>
+    <div class="card-brand">&#9670; speakspanishway.com</div>
+  </div>
+  <div class="screenshot-hint">&#8593; Screenshot &amp; share</div>
+  <button class="restart-btn" onclick="restart()">Practice again</button>
+</div>
+
+<div class="footer">Isabel &nbsp;·&nbsp; speakspanishway.com</div>
+
+<script>
+const V = [
+  { w:"arraigado/a",          t:"adjetivo",  d:"Deep-rooted, firmly established",                        e:"La cultura del mate está muy arraigada en Argentina." },
+  { w:"brecha",               t:"sustantivo",d:"Gap or divide — social, economic or digital",            e:"La brecha entre ricos y pobres sigue creciendo en América Latina." },
+  { w:"coyuntura",            t:"sustantivo",d:"The current situation — a specific political moment",    e:"La coyuntura hace muy difícil cualquier reforma estructural." },
+  { w:"soslayar",             t:"verbo",     d:"To sidestep or avoid — a problem or uncomfortable truth",e:"No podemos soslayar los problemas estructurales del sistema." },
+  { w:"rendición de cuentas", t:"sustantivo",d:"Accountability — obligation to explain and justify actions",e:"La rendición de cuentas es esencial en una democracia sana." },
+];
+
+let cur = 0, hits = 0, flipped = false;
+
+function buildDots() {
+  const d = document.getElementById('dots');
+  d.innerHTML = V.map((_,i) => `<div class="dot${i===0?' active':''}" id="d${i}"></div>`).join('');
+}
+
+function load(i) {
+  const v = V[i];
+  document.getElementById('type').textContent = v.t;
+  document.getElementById('word').textContent = v.w;
+  document.getElementById('def').textContent  = v.d;
+  document.getElementById('ex').textContent   = `"${v.e}"`;
+  document.getElementById('prog').textContent = `${i+1} / ${V.length}`;
+
+  const cb = document.getElementById('cb');
+  cb.style.transition = 'none';
+  cb.classList.remove('flipped');
+  cb.offsetHeight;
+  cb.style.transition = '';
+  flipped = false;
+
+  document.getElementById('act').classList.remove('on');
+}
+
+function flip() {
+  if (flipped) return;
+  flipped = true;
+  document.getElementById('cb').classList.add('flipped');
+  document.getElementById('act').classList.add('on');
+}
+
+function ans(knew) {
+  const dot = document.getElementById(`d${cur}`);
+  dot.classList.remove('active');
+  dot.classList.add(knew ? 'hit' : 'miss');
+  if (knew) hits++;
+  cur++;
+
+  if (cur >= V.length) { showResults(); return; }
+
+  const dot2 = document.getElementById(`d${cur}`);
+  if (dot2) dot2.classList.add('active');
+
+  const sc = document.getElementById('scene');
+  sc.style.opacity = '0';
+  sc.style.transform = 'translateY(14px)';
+
+  setTimeout(() => {
+    load(cur);
+    sc.style.opacity = '1';
+    sc.style.transform = 'translateY(0)';
+  }, 230);
+}
+
+function showResults() {
+  ['scene','act','dots'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('prog').style.display = 'none';
+  const r = document.getElementById('res');
+  r.style.display = 'flex';
+  document.getElementById('sNum').textContent = hits + '/5';
+  const levels = [
+    [5, "My Spanish\nis getting sharp.",        "5 for 5. These words are yours now."],
+    [4, "Strong session.",                       "4 out of 5 — that's real progress."],
+    [3, "Making progress,\none word at a time.", "Halfway there. Keep showing up."],
+    [1, "First contact.",                        "Every session moves the needle."],
+    [0, "The learning\nstarts here.",            "Next round, these will feel familiar."]
+  ];
+  const found = levels.find(function(x){ return hits >= x[0]; });
+  document.getElementById('rHeadline').style.whiteSpace = 'pre-line';
+  document.getElementById('rHeadline').textContent = found[1];
+  document.getElementById('rSub').textContent = found[2];
+}
+
+
+function restart() {
+  cur = 0; hits = 0;
+  ['scene','act','dots'].forEach(id => { const el = document.getElementById(id); el.style.display=''; });
+  document.getElementById('prog').style.display = '';
+  document.getElementById('res').style.display = 'none';
+  buildDots();
+  load(0);
+}
+
+buildDots();
+load(0);
+</script>
+</body>
+</html>
