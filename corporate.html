@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Corporate Spanish programs for teams — built around your industry, your people, and real outcomes.">
+<meta property="og:title" content="Corporate Programs — Speak Spanish Way">
+<meta property="og:description" content="Spanish for teams that mean business. Industry vocabulary, cultural connection, and measurable outcomes.">
+<meta property="og:url" content="https://speakspanishway.com/corporate">
+<meta property="og:type" content="website">
+<title>Corporate Programs — Speak Spanish Way</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF7F2;
+    --dark: #1A1A2E;
+    --terracotta: #C1440E;
+    --terracotta-light: #E8603A;
+    --gold: #D4A843;
+    --green: #2D6A4F;
+    --green-light: #40916C;
+    --text: #2C2C2C;
+    --text-muted: #6B6B6B;
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26,26,46,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+  }
+
+  .nav-brand span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: white; }
+
+  .nav-links a.active { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--terracotta);
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 500 !important;
+    font-size: 0.88rem !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--terracotta-light) !important; }
+
+  /* ── HERO ── */
+  .corp-hero {
+    min-height: 52vh;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    padding: 140px 8vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .corp-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(193,68,14,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, rgba(212,168,67,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .corp-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .corp-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(193,68,14,0.15);
+    border: 1px solid rgba(193,68,14,0.4);
+    color: #E8814A;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .corp-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .corp-hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .corp-hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 36px;
+    max-width: 520px;
+  }
+
+  .corp-hero-note {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.35);
+    font-style: italic;
+    padding-left: 14px;
+    border-left: 2px solid rgba(193,68,14,0.5);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 96px 8vw;
+  }
+
+  .section-alt {
+    background: white;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 600px;
+    margin-bottom: 56px;
+  }
+
+  /* ── PILLARS ── */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-bottom: 0;
+  }
+
+  .pillar {
+    background: var(--cream);
+    border: 1px solid #e8e2d8;
+    border-radius: 12px;
+    padding: 32px 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .pillar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+  }
+
+  .pillar-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .pillar h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .pillar p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    background: var(--dark);
+    border-radius: 20px;
+    padding: 56px 60px;
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+
+  .quote-content { flex: 1; min-width: 280px; }
+
+  .quote-content blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .quote-author {
+    font-size: 0.8rem;
+    color: var(--terracotta);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .stats-col {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    min-width: 150px;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── INSTRUCTORS ── */
+  .instructors-intro {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 20px;
+    max-width: 560px;
+  }
+
+  .instructor-tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  .instructor-tag {
+    background: var(--cream);
+    border: 1px solid #e8e2d8;
+    border-radius: 100px;
+    padding: 10px 20px;
+    font-size: 0.88rem;
+    color: var(--text);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ── INCLUDES ── */
+  .includes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .include-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px 24px;
+    background: var(--cream);
+    border: 1px solid #e8e2d8;
+    border-radius: 12px;
+  }
+
+  .include-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  .include-item strong {
+    display: block;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.92rem;
+    margin-bottom: 4px;
+  }
+
+  .include-item p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: white;
+    border: 1px solid #e8e2d8;
+    border-radius: 14px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 56px;
+  }
+
+  .trust-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+
+  .trust-divider {
+    width: 1px;
+    height: 36px;
+    background: #e8e2d8;
+    flex-shrink: 0;
+  }
+
+  .trust-item {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .trust-item strong {
+    font-weight: 500;
+    color: var(--dark);
+    display: block;
+  }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: var(--dark);
+    padding: 96px 8vw;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .cta-section h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .cta-section p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--terracotta);
+    color: white;
+    padding: 15px 36px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--terracotta-light); }
+
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    padding: 15px 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: white;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 48px 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .footer-brand span { color: var(--gold); }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: white; }
+
+  .footer-copy {
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .corp-hero { padding: 120px 6vw 60px; }
+    .section { padding: 64px 6vw; }
+    .quote-block { padding: 40px 32px; }
+    .trust-bar { flex-direction: column; align-items: flex-start; }
+    .trust-divider { width: 100%; height: 1px; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .stats-col { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-brand">Speak <span>Spanish</span> Way</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/corporate" class="active">Corporate</a>
+    <a href="https://calendly.com/joetulain/30min" target="_blank" class="nav-cta">Book a Free Class →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="corp-hero">
+  <div class="corp-hero-content">
+    <div class="corp-hero-badge">Corporate Programs</div>
+    <h1>Spanish for <em>teams</em><br>that mean business.</h1>
+    <p class="corp-hero-sub">More than language classes — a complete program built around your team's real world. Industry vocabulary, cultural connection, and measurable outcomes your organization can stand behind.</p>
+    <p class="corp-hero-note">For companies of any size looking to build real bridges across languages and cultures.</p>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="section">
+  <div class="section-tag">How it works</div>
+  <h2 class="section-title">A program built around <em>your</em> team</h2>
+  <p class="section-lead">Not a subscription. Not a platform. A real instructor, real conversations, and content that connects to your team's actual work from day one.</p>
+
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <h3>Built for your industry</h3>
+      <p>No generic textbooks. Content designed around your team's actual work — the vocabulary, situations, and conversations that matter in your context.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <h3>Small groups, real progress</h3>
+      <p>Organized by proficiency level so every session is productive. Groups of 4–8 — enough energy, enough individual attention for everyone.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <h3>Documented outcomes</h3>
+      <p>Written progress reports after every class. Your team's learning is tracked and visible — so you always have something concrete to show leadership.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <h3>Support between sessions</h3>
+      <p>Direct access to ask questions, practice, and stay connected between classes. Learning doesn't stop when the session ends.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE + STATS -->
+<section class="section section-alt">
+  <div class="quote-block">
+    <div class="quote-content">
+      <blockquote>"The goal isn't just to teach Spanish. It's to give your team something they'll actually use — and something you can show."</blockquote>
+      <div class="quote-author">José Etulain — Founder, Speak Spanish Way</div>
+    </div>
+    <div class="stats-col">
+      <div class="stat">
+        <span class="stat-num">16</span>
+        <span class="stat-label">years teaching</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100+</span>
+        <span class="stat-label">professionals trained</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">instructor countries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section class="section">
+  <div class="section-tag">Native instructors from</div>
+  <p class="instructors-intro">Your team learns from educators who bring authentic regional accents, cultural depth, and professional experience from across the Spanish-speaking world.</p>
+  <div class="instructor-tags">
+    <div class="instructor-tag"><span>🇦🇷</span> Argentina</div>
+    <div class="instructor-tag"><span>🇨🇴</span> Colombia</div>
+    <div class="instructor-tag"><span>🇲🇽</span> Mexico</div>
+  </div>
+
+  <div class="trust-bar">
+    <span class="trust-label">Trusted by</span>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><strong>Escuela Alianza</strong>Houston, TX — group program, now in its 4th cycle</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><strong>Enjoy San Francisco</strong>San Francisco, CA — group classes</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><strong>Corporate clients</strong>Houston, TX — ongoing programs</div>
+  </div>
+</section>
+
+<!-- INCLUDES -->
+<section class="section section-alt">
+  <div class="section-tag">Every program includes</div>
+  <h2 class="section-title">Everything your team needs.<br><em>Nothing they don't.</em></h2>
+  <p class="section-lead">Every corporate program comes with the full SSW experience — from the first diagnostic to the last progress report.</p>
+
+  <div class="includes-grid">
+    <div class="include-item">
+      <div class="include-dot"></div>
+      <div>
+        <strong>Diagnostic assessment</strong>
+        <p>Groups organized by real proficiency — no one placed in the wrong level.</p>
+      </div>
+    </div>
+    <div class="include-item">
+      <div class="include-dot"></div>
+      <div>
+        <strong>Post-class written reports</strong>
+        <p>Every session documented. Participants who miss a class stay fully informed.</p>
+      </div>
+    </div>
+    <div class="include-item">
+      <div class="include-dot"></div>
+      <div>
+        <strong>Between-session support</strong>
+        <p>Direct access for questions and practice — any day of the week.</p>
+      </div>
+    </div>
+    <div class="include-item">
+      <div class="include-dot"></div>
+      <div>
+        <strong>Custom curriculum</strong>
+        <p>Content built around your team — not a textbook designed for someone else.</p>
+      </div>
+    </div>
+    <div class="include-item">
+      <div class="include-dot"></div>
+      <div>
+        <strong>Optional session recordings</strong>
+        <p>Available with group consent — useful for participants with demanding schedules.</p>
+      </div>
+    </div>
+    <div class="include-item">
+      <div class="include-dot"></div>
+      <div>
+        <strong>Complimentary trial class</strong>
+        <p>A full 60-minute session before any commitment. No preparation required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to bring Spanish<br>to your <em>team?</em></h2>
+  <p>Let's have a conversation. No commitment, no pressure — just a chance to explore what this could look like for your organization.</p>
+  <div class="cta-buttons">
+    <a href="mailto:jose@speakspanishway.com" class="btn-primary">Let's talk about your team →</a>
+    <a href="/" class="btn-secondary">Back to Speak Spanish Way</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Speak <span>Spanish</span> Way</div>
+  <div class="footer-links">
+    <a href="#" onclick="this.href='mail'+'to:jose'+'@speak'+'spanishway.com';return false;" style="cursor:pointer;">jose&#64;speakspanishway&#46;com</a>
+    <a href="https://instagram.com/speakspanishway" target="_blank">@speakspanishway</a>
+    <a href="https://linkedin.com/in/jose-etulain" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-copy">© 2026 Speak Spanish Way · José Etulain</div>
+</footer>
+
+</body>
+</html>
