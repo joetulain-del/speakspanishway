@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Far Can You Go on the Way? · Speak Spanish Way</title>
+<meta name="description" content="A travel adventure game in Spanish. 10 stops, real situations, false friends. How far can you go on the Way?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2140;
+    --orange:#E8681A;
+    --orange-deep:#B54F12;
+    --cream:#F5F2EC;
+    --paper:#FBF9F4;
+    --gold:#D4A843;
+    --gold-soft:#C9A96E;
+    --ink-soft:rgba(27,33,64,.62);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(212,168,67,.10), transparent 42%),
+      radial-gradient(circle at 85% 90%, rgba(232,104,26,.07), transparent 45%),
+      var(--cream);
+    color:var(--navy);
+    min-height:100vh;
+    line-height:1.55;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:20px 16px 56px}
+
+  /* ---------- shared poster card ---------- */
+  .poster{
+    background:var(--paper);
+    border:2px solid var(--navy);
+    border-radius:10px;
+    box-shadow:6px 6px 0 rgba(27,33,64,.14);
+    padding:26px 22px;
+  }
+  .eyebrow{
+    font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange);margin-bottom:6px;
+  }
+  h1,h2{font-family:'Playfair Display',serif;line-height:1.12}
+  .btn{
+    display:inline-block;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;
+    background:var(--navy);color:var(--cream);border:2px solid var(--navy);
+    border-radius:8px;padding:13px 26px;cursor:pointer;text-decoration:none;text-align:center;
+    transition:transform .12s ease, background .12s ease;
+  }
+  .btn:hover{background:var(--orange);border-color:var(--orange);transform:translateY(-2px)}
+  .btn.secondary{background:transparent;color:var(--navy)}
+  .btn.secondary:hover{background:var(--navy);color:var(--cream)}
+  .btn:focus-visible, button:focus-visible, a:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+
+  /* ---------- intro ---------- */
+  #intro{text-align:center}
+  .sunburst{margin:6px auto 2px;display:block}
+  #intro h1{font-size:clamp(2rem,7vw,3rem);font-weight:900;margin:10px 0 4px}
+  #intro h1 .way{color:var(--orange);font-style:italic}
+  .tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:1.06rem;color:var(--ink-soft);margin-bottom:22px}
+  .rules{
+    text-align:left;margin:0 auto 26px;max-width:440px;
+    border-top:1px dashed var(--gold-soft);border-bottom:1px dashed var(--gold-soft);
+    padding:16px 4px;
+  }
+  .rules p{margin:7px 0;font-size:.95rem}
+  .rules b{color:var(--orange-deep)}
+  .brandline{margin-top:22px;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .brandline a{color:var(--orange);text-decoration:none;font-weight:700}
+
+  /* ---------- route map ---------- */
+  #routemap{margin:0 0 16px}
+  #routemap svg{width:100%;height:auto;display:block}
+  .stopnode{font-family:'DM Sans',sans-serif;font-weight:700}
+
+  /* ---------- scene ---------- */
+  .scene-art{border:2px solid var(--navy);border-radius:8px;overflow:hidden;background:var(--cream);margin:14px 0 16px}
+  .scene-art svg{display:block;width:100%;height:auto}
+  h2.stopname{font-size:clamp(1.35rem,5vw,1.8rem);font-weight:700}
+  .setting{font-size:.98rem;margin:10px 0 12px;color:var(--navy)}
+  .npc{
+    position:relative;background:var(--cream);border:2px solid var(--navy);border-radius:8px;
+    padding:14px 14px 12px;margin:0 0 6px;
+  }
+  .npc:after{
+    content:"";position:absolute;left:26px;bottom:-9px;width:14px;height:14px;
+    background:var(--cream);border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);
+    transform:rotate(45deg);
+  }
+  .npc .quote{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700}
+  .npc-tools{display:flex;gap:10px;margin-top:9px;flex-wrap:wrap}
+  .chip{
+    font-size:.8rem;font-weight:700;border:1.5px solid var(--navy);background:var(--paper);
+    color:var(--navy);border-radius:20px;padding:5px 12px;cursor:pointer;
+  }
+  .chip:hover{border-color:var(--orange);color:var(--orange-deep)}
+  .chip[disabled]{opacity:.42;cursor:not-allowed}
+  .translation{
+    display:none;margin-top:9px;font-size:.9rem;font-style:italic;color:var(--ink-soft);
+    border-top:1px dashed var(--gold-soft);padding-top:8px;
+  }
+  .prompt{margin:16px 0 12px;font-weight:700;font-size:1rem}
+  .prompt .hint{font-weight:400;color:var(--ink-soft)}
+
+  /* ---------- options ---------- */
+  .options{display:flex;flex-direction:column;gap:10px}
+  .opt{
+    text-align:left;font-family:'DM Sans',sans-serif;font-size:.98rem;line-height:1.45;
+    background:var(--paper);border:2px solid var(--navy);border-radius:8px;
+    padding:13px 15px;cursor:pointer;color:var(--navy);
+    transition:transform .1s ease, border-color .1s ease, box-shadow .1s ease;
+  }
+  .opt:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:4px 4px 0 rgba(232,104,26,.18)}
+  .opt.used{opacity:.38;cursor:not-allowed;text-decoration:line-through}
+  .opt .act{font-style:italic}
+
+  /* ---------- feedback ---------- */
+  .feedback{border:2px solid var(--navy);border-radius:10px;padding:20px 18px;background:var(--paper);text-align:center}
+  .stamp{
+    display:inline-block;font-weight:700;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
+    border:2.5px solid;border-radius:6px;padding:5px 14px;transform:rotate(-4deg);margin-bottom:14px;
+  }
+  .feedback.good .stamp{color:var(--orange);border-color:var(--orange)}
+  .feedback.lesson .stamp{color:var(--gold-soft);border-color:var(--gold-soft);color:var(--orange-deep);border-color:var(--gold)}
+  .feedback.retry .stamp{color:var(--navy);border-color:var(--navy)}
+  .feedback.dead .stamp{color:var(--navy);border-color:var(--navy);background:rgba(27,33,64,.06)}
+  .feedback .chose{font-size:.88rem;color:var(--ink-soft);margin-bottom:10px}
+  .feedback .fbtext{font-size:1rem;margin-bottom:18px}
+  .feedback .fbtext b{color:var(--orange-deep)}
+
+  /* ---------- end screen ---------- */
+  #end .tier-emoji{font-size:2.6rem;display:block;text-align:center;margin-top:4px}
+  #end h2{font-size:clamp(1.6rem,6vw,2.2rem);text-align:center;margin:6px 0 10px}
+  #end .tiermsg{text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-size:1.06rem;color:var(--ink-soft);max-width:480px;margin:0 auto 22px}
+  .libreta{
+    background:var(--cream);border:2px solid var(--navy);border-radius:8px;padding:18px 16px;margin:0 0 22px;
+  }
+  .libreta h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:4px}
+  .libreta .sub{font-size:.82rem;color:var(--ink-soft);margin-bottom:12px}
+  .entry{border-top:1px dashed var(--gold-soft);padding:9px 2px}
+  .entry .es{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem}
+  .entry .en{font-size:.86rem;color:var(--ink-soft);font-style:italic}
+  .entry.trap .es{color:var(--orange-deep)}
+  .ctabox{text-align:center;margin-bottom:8px}
+  .ctabox p{font-size:.98rem;max-width:480px;margin:0 auto 16px}
+  .toolkit{display:block;text-align:center;font-size:.9rem;margin:14px 0 24px}
+  .toolkit a{color:var(--orange-deep);font-weight:700;text-decoration:underline}
+  .sharebox{border-top:1px dashed var(--gold-soft);padding-top:18px;text-align:center}
+  .sharebox p{font-size:.86rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:10px}
+  .sharerow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .referral{text-align:center;font-size:.95rem;margin:0 0 16px;font-weight:500}
+
+  .hidden{display:none!important}
+  .fadein{animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+  @media (max-width:480px){
+    .poster{padding:20px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= INTRO ================= -->
+  <section id="intro" class="poster fadein">
+    <svg class="sunburst" width="130" height="86" viewBox="0 0 130 86" aria-hidden="true">
+      <g stroke="#D4A843" stroke-width="3">
+        <line x1="65" y1="52" x2="65" y2="6"/><line x1="65" y1="52" x2="30" y2="16"/>
+        <line x1="65" y1="52" x2="100" y2="16"/><line x1="65" y1="52" x2="12" y2="44"/>
+        <line x1="65" y1="52" x2="118" y2="44"/>
+      </g>
+      <circle cx="65" cy="58" r="24" fill="#E8681A"/>
+      <rect x="0" y="72" width="130" height="14" fill="#1B2140" rx="3"/>
+    </svg>
+    <div class="eyebrow">A Spanish travel adventure · by Speak Spanish Way</div>
+    <h1>How Far Can You Go <span class="way">on the Way?</span></h1>
+    <p class="tagline">You just landed in a Latin American city. Ten stops ahead. Only your Spanish can take you to the end.</p>
+    <div class="rules">
+      <p>🧳 <b>10 stops</b>, each a real situation — from the airport to a goodbye that matters.</p>
+      <p>💬 Pick what you'd actually say. <b>Careful:</b> the fanciest answer isn't always the right one.</p>
+      <p>🆘 You get <b>3 lifesavers</b> to translate what people say to you. Spend them wisely.</p>
+      <p>📓 Win or lose, you leave with a notebook of real Spanish from your journey.</p>
+    </div>
+    <button class="btn" onclick="startGame()">Start the journey →</button>
+    <div class="brandline">speak spanish way · <a href="https://speakspanishway.com" target="_blank" rel="noopener">speakspanishway.com</a></div>
+  </section>
+
+  <!-- ================= GAME ================= -->
+  <section id="game" class="hidden">
+    <div id="routemap"></div>
+    <div class="poster" id="scenecard"></div>
+  </section>
+
+  <!-- ================= END ================= -->
+  <section id="end" class="hidden">
+    <div id="endmap"></div>
+    <div class="poster" id="endcard"></div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+
+/* ================= CONFIG ================= */
+const GAME_URL   = "https://speakspanishway.com/spanish-adventure.html";
+const CALENDLY   = "https://calendly.com/joetulain/30min?back=1";
+const TOOLKIT    = "https://speakspanishway.com/toolkit.html";
+const MAX_LIVES  = 3;
+
+/* ================= SCENE ART ================= */
+/* Flat vintage-poster vignettes — layered compositions. Palette via CSS vars. viewBox 400x200 */
+function art(id){
+  const N='var(--navy)',O='var(--orange)',OD='var(--orange-deep)',G='var(--gold)',GS='var(--gold-soft)',C='var(--cream)',P='var(--paper)',DK='#12172e';
+  const fig=(x,y,c)=>`<g transform="translate(${x} ${y})"><circle cy="-44" r="7" fill="${c}"/><path d="M-9 -36 Q0 -42 9 -36 L8 -9 L-8 -9 Z" fill="${c}"/><rect x="-7.5" y="-9" width="6" height="10" rx="2.5" fill="${c}"/><rect x="1.5" y="-9" width="6" height="10" rx="2.5" fill="${c}"/></g>`;
+  const sun=(x,y,r)=>{let s='';for(let i=0;i<8;i++){const a=Math.PI*2*i/8-Math.PI/2;s+=`<line x1="${(x+Math.cos(a)*(r+5)).toFixed(1)}" y1="${(y+Math.sin(a)*(r+5)).toFixed(1)}" x2="${(x+Math.cos(a)*(r+13)).toFixed(1)}" y2="${(y+Math.sin(a)*(r+13)).toFixed(1)}" stroke="${G}" stroke-width="3" stroke-linecap="round"/>`;}return s+`<circle cx="${x}" cy="${y}" r="${r}" fill="${O}"/>`;};
+  const A={
+  /* 1 · La Llegada — airport hall, plane in the window, driver with sign */
+  1:`<rect x="24" y="24" width="352" height="98" fill="${GS}" opacity=".15"/>
+     <rect x="24" y="24" width="352" height="98" fill="none" stroke="${N}" stroke-width="3"/>
+     <line x1="112" y1="24" x2="112" y2="122" stroke="${N}" stroke-width="3"/>
+     <line x1="200" y1="24" x2="200" y2="122" stroke="${N}" stroke-width="3"/>
+     <line x1="288" y1="24" x2="288" y2="122" stroke="${N}" stroke-width="3"/>
+     ${sun(334,50,12)}
+     <g fill="${N}"><path d="M52 80 L130 60 L146 65 L102 88 Z"/><path d="M94 70 L104 52 L113 55 L104 73 Z"/><path d="M97 84 L106 98 L114 97 L107 82 Z"/><circle cx="137" cy="61" r="4.5"/></g>
+     <rect y="150" width="400" height="50" fill="${N}"/>
+     <g stroke="${N}" stroke-width="1.5" opacity=".22"><line x1="200" y1="200" x2="40" y2="126"/><line x1="200" y1="200" x2="200" y2="126"/><line x1="200" y1="200" x2="360" y2="126"/></g>
+     ${fig(96,166,O)}
+     <rect x="114" y="138" width="22" height="28" rx="3" fill="${G}" stroke="${N}" stroke-width="2.5"/>
+     <rect x="120" y="132" width="10" height="6" rx="2" fill="none" stroke="${N}" stroke-width="2.5"/>
+     <line x1="105" y1="134" x2="117" y2="140" stroke="${O}" stroke-width="5" stroke-linecap="round"/>
+     ${fig(318,166,N)}
+     <rect x="234" y="102" width="76" height="34" rx="3" fill="${P}" stroke="${N}" stroke-width="3"/>
+     <text x="272" y="125" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="15" letter-spacing="1" fill="${OD}">SMITH</text>
+     <line x1="310" y1="134" x2="304" y2="120" stroke="${N}" stroke-width="5" stroke-linecap="round"/>`,
+  /* 2 · El Taxi — street, skyline, checkered cab */
+  2:`${sun(52,42,13)}
+     <g fill="${N}" opacity=".82"><rect x="236" y="56" width="36" height="62"/><rect x="282" y="40" width="32" height="78"/><rect x="324" y="64" width="44" height="54"/></g>
+     <g fill="${G}"><rect x="244" y="66" width="7" height="7"/><rect x="258" y="66" width="7" height="7"/><rect x="244" y="82" width="7" height="7"/><rect x="258" y="98" width="7" height="7"/><rect x="290" y="50" width="6" height="6"/><rect x="302" y="50" width="6" height="6"/><rect x="290" y="66" width="6" height="6"/><rect x="302" y="82" width="6" height="6"/><rect x="334" y="72" width="7" height="7"/><rect x="350" y="72" width="7" height="7"/><rect x="334" y="90" width="7" height="7"/></g>
+     <rect y="118" width="400" height="82" fill="${N}"/>
+     <line x1="0" y1="172" x2="400" y2="172" stroke="${C}" stroke-width="4" stroke-dasharray="18 16"/>
+     <g stroke="${GS}" stroke-width="3" stroke-linecap="round"><line x1="70" y1="102" x2="98" y2="102"/><line x1="60" y1="114" x2="94" y2="114"/></g>
+     <path d="M116 134 Q116 112 138 110 L154 110 L168 88 Q172 82 180 82 L244 82 Q252 82 256 88 L272 110 L286 110 Q306 112 306 134 L306 142 Q306 148 300 148 L122 148 Q116 148 116 142 Z" fill="${G}" stroke="${N}" stroke-width="3"/>
+     <path d="M174 108 L184 90 L206 90 L206 108 Z" fill="${N}"/>
+     <path d="M214 108 L214 90 L238 90 L250 108 Z" fill="${N}"/>
+     <circle cx="194" cy="100" r="5.5" fill="${C}"/>
+     <rect x="122" y="116" width="178" height="11" fill="${C}"/>
+     <g fill="${N}"><rect x="122" y="116" width="11" height="11"/><rect x="144" y="116" width="11" height="11"/><rect x="166" y="116" width="11" height="11"/><rect x="188" y="116" width="11" height="11"/><rect x="210" y="116" width="11" height="11"/><rect x="232" y="116" width="11" height="11"/><rect x="254" y="116" width="11" height="11"/><rect x="276" y="116" width="11" height="11"/></g>
+     <rect x="190" y="64" width="44" height="17" rx="3" fill="${P}" stroke="${N}" stroke-width="2.5"/>
+     <text x="212" y="77" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="11" fill="${N}">TAXI</text>
+     <circle cx="154" cy="148" r="15" fill="${N}"/><circle cx="154" cy="148" r="6.5" fill="${C}"/><circle cx="154" cy="148" r="2.5" fill="${G}"/>
+     <circle cx="268" cy="148" r="15" fill="${N}"/><circle cx="268" cy="148" r="6.5" fill="${C}"/><circle cx="268" cy="148" r="2.5" fill="${G}"/>
+     <circle cx="303" cy="122" r="4" fill="${O}"/>`,
+  /* 3 · El Hotel — lobby: arch, plaque, desk, lamp, bell, palm */
+  3:`<rect y="150" width="400" height="50" fill="${N}" opacity=".06"/>
+     <g fill="${N}" opacity=".09"><path d="M60 172 l13 9 -13 9 -13 -9Z"/><path d="M120 178 l13 9 -13 9 -13 -9Z"/><path d="M310 174 l13 9 -13 9 -13 -9Z"/><path d="M366 182 l13 9 -13 9 -13 -9Z"/></g>
+     <path d="M46 150 L46 80 Q78 42 110 80 L110 150" fill="${GS}" opacity=".22"/>
+     <path d="M46 150 L46 80 Q78 42 110 80 L110 150" fill="none" stroke="${G}" stroke-width="4"/>
+     <rect x="148" y="36" width="124" height="27" rx="4" fill="${N}"/>
+     <text x="210" y="55" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="12" letter-spacing="3" fill="${G}">RECEPCIÓN</text>
+     <rect x="314" y="52" width="58" height="46" rx="4" fill="${P}" stroke="${N}" stroke-width="2.5"/>
+     <g stroke="${G}" stroke-width="2.5" fill="none"><circle cx="328" cy="66" r="4"/><line x1="328" y1="70" x2="328" y2="82"/><circle cx="344" cy="66" r="4"/><line x1="344" y1="70" x2="344" y2="82"/><circle cx="360" cy="66" r="4"/><line x1="360" y1="70" x2="360" y2="82"/></g>
+     <circle cx="210" cy="92" r="8" fill="${C}"/>
+     <path d="M194 114 Q210 98 226 114 Z" fill="${N}"/>
+     <rect x="130" y="110" width="160" height="14" rx="3" fill="${N}"/>
+     <rect x="140" y="124" width="140" height="48" fill="${P}" stroke="${N}" stroke-width="3"/>
+     <rect x="150" y="132" width="55" height="32" fill="none" stroke="${GS}" stroke-width="2"/>
+     <rect x="215" y="132" width="55" height="32" fill="none" stroke="${GS}" stroke-width="2"/>
+     <path d="M146 90 L170 90 L165 104 L151 104 Z" fill="${G}" stroke="${N}" stroke-width="2"/>
+     <line x1="158" y1="104" x2="158" y2="110" stroke="${N}" stroke-width="3"/>
+     <path d="M242 110 a11 11 0 0 1 22 0 Z" fill="${G}" stroke="${N}" stroke-width="2"/>
+     <rect x="251" y="94" width="4" height="6" rx="2" fill="${G}"/>
+     <line x1="238" y1="110" x2="268" y2="110" stroke="${N}" stroke-width="2.5"/>
+     <path d="M328 150 L364 150 L357 176 L335 176 Z" fill="${OD}" stroke="${N}" stroke-width="2.5"/>
+     <g stroke="${GS}" stroke-width="5" stroke-linecap="round" fill="none"><path d="M346 148 Q328 118 306 114"/><path d="M346 148 Q346 108 348 100"/><path d="M346 148 Q364 118 386 116"/></g>`,
+  /* 4 · La Comida Callejera — papel picado, striped awning cart, vendor, steam */
+  4:`<line x1="0" y1="16" x2="400" y2="24" stroke="${N}" stroke-width="1.5"/>
+     <g><path d="M36 19 l14 1 -7 15Z" fill="${O}"/><path d="M86 21 l14 1 -7 15Z" fill="${G}"/><path d="M136 23 l14 0 -7 15Z" fill="${N}"/><path d="M256 24 l14 0 -7 15Z" fill="${O}"/><path d="M306 24 l14 0 -7 15Z" fill="${G}"/><path d="M356 24 l14 0 -7 15Z" fill="${N}"/></g>
+     ${sun(352,58,11)}
+     <rect y="176" width="400" height="24" fill="${N}"/>
+     <path d="M88 58 L300 58 L292 92 L96 92 Z" fill="${C}" stroke="${N}" stroke-width="3"/>
+     <path d="M118 58 L110 92 L134 92 L140 58 Z" fill="${O}"/>
+     <path d="M170 58 L166 92 L190 92 L192 58 Z" fill="${O}"/>
+     <path d="M222 58 L222 92 L246 92 L244 58 Z" fill="${O}"/>
+     <path d="M96 92 q12.5 11 25 0 q12.5 11 25 0 q12.5 11 24 0 q12.5 11 25 0 q12.5 11 25 0 q12.5 11 25 0 q12.5 11 25 0 q12 11 22 0" fill="none" stroke="${N}" stroke-width="3"/>
+     <line x1="100" y1="100" x2="104" y2="118" stroke="${N}" stroke-width="3"/>
+     <line x1="288" y1="100" x2="284" y2="118" stroke="${N}" stroke-width="3"/>
+     <rect x="96" y="112" width="196" height="10" rx="3" fill="${N}"/>
+     <rect x="104" y="122" width="180" height="54" fill="${P}" stroke="${N}" stroke-width="3"/>
+     <rect x="114" y="132" width="160" height="34" fill="none" stroke="${GS}" stroke-width="2" stroke-dasharray="5 5"/>
+     <circle cx="132" cy="176" r="17" fill="none" stroke="${N}" stroke-width="5"/><circle cx="132" cy="176" r="4" fill="${N}"/>
+     <circle cx="256" cy="176" r="17" fill="none" stroke="${N}" stroke-width="5"/><circle cx="256" cy="176" r="4" fill="${N}"/>
+     <ellipse cx="150" cy="76" rx="15" ry="4.5" fill="${G}" stroke="${OD}" stroke-width="1.5"/>
+     <path d="M141 74 Q150 62 159 74 Z" fill="${G}" stroke="${OD}" stroke-width="1.5"/>
+     <circle cx="150" cy="88" r="7" fill="${N}"/>
+     <path d="M136 112 Q150 96 164 112 Z" fill="${N}"/>
+     <ellipse cx="216" cy="110" rx="22" ry="5" fill="${C}" stroke="${N}" stroke-width="2"/>
+     <path d="M200 108 a8 8 0 0 1 16 0 Z" fill="${O}" stroke="${OD}" stroke-width="1.5"/>
+     <path d="M214 106 a8 8 0 0 1 16 0 Z" fill="${O}" stroke="${OD}" stroke-width="1.5"/>
+     <g stroke="${GS}" stroke-width="3" fill="none" stroke-linecap="round"><path d="M210 94 q5 -9 0 -18"/><path d="M226 96 q-5 -9 0 -18"/></g>
+     ${fig(336,176,O)}
+     <line x1="327" y1="146" x2="314" y2="138" stroke="${O}" stroke-width="5" stroke-linecap="round"/>`,
+  /* 5 · Perdido en el Centro — kiosk, church skyline, lamp, dead phone */
+  5:`<g fill="${N}" opacity=".45"><rect x="182" y="70" width="44" height="52"/><path d="M182 70 Q204 44 226 70 Z"/></g>
+     <g stroke="${N}" stroke-width="3" opacity=".45"><line x1="204" y1="34" x2="204" y2="48"/><line x1="198" y1="39" x2="210" y2="39"/></g>
+     <g fill="${N}" opacity=".28"><rect x="240" y="92" width="34" height="30"/><rect x="148" y="96" width="28" height="26"/></g>
+     <rect y="160" width="400" height="40" fill="${N}"/>
+     <path d="M50 62 L174 62 L167 90 L57 90 Z" fill="${O}" stroke="${N}" stroke-width="3"/>
+     <text x="112" y="82" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="11" letter-spacing="3" fill="${C}">PRENSA</text>
+     <rect x="60" y="90" width="104" height="70" fill="${P}" stroke="${N}" stroke-width="3"/>
+     <rect x="70" y="98" width="54" height="34" fill="${C}" stroke="${N}" stroke-width="2"/>
+     <circle cx="97" cy="112" r="7" fill="${N}"/>
+     <path d="M84 132 Q97 118 110 132 Z" fill="${N}"/>
+     <g stroke="${N}" stroke-width="1.5" fill="${C}"><rect x="132" y="98" width="22" height="15"/><rect x="132" y="117" width="22" height="15"/><rect x="132" y="136" width="22" height="15"/></g>
+     <g><rect x="135" y="101" width="8" height="4" fill="${O}"/><rect x="135" y="120" width="8" height="4" fill="${G}"/><rect x="135" y="139" width="8" height="4" fill="${OD}"/></g>
+     <line x1="238" y1="160" x2="238" y2="74" stroke="${N}" stroke-width="5"/>
+     <circle cx="238" cy="66" r="15" fill="${G}" opacity=".28"/>
+     <circle cx="238" cy="66" r="8" fill="${G}"/>
+     ${fig(322,158,O)}
+     <g transform="rotate(-10 300 122)"><rect x="288" y="100" width="26" height="44" rx="6" fill="${N}"/><rect x="291" y="106" width="20" height="30" fill="${DK}"/><text x="301" y="125" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="10" fill="${O}">0%</text></g>
+     <line x1="313" y1="128" x2="306" y2="124" stroke="${O}" stroke-width="5" stroke-linecap="round"/>
+     <text x="344" y="92" font-family="Playfair Display, serif" font-weight="700" font-size="20" fill="${N}">¿...?</text>
+     <g stroke="${N}" stroke-width="2" fill="none"><path d="M52 152 q4 -6 9 0 q4 -3 7 1"/></g>`,
+  /* 6 · El Bar — night interior, string lights, toast, SSW poster on the wall */
+  6:`<rect width="400" height="200" fill="${N}"/>
+     <path d="M0 28 Q100 50 200 32 Q300 16 400 38" stroke="${C}" stroke-width="1.5" fill="none" opacity=".6"/>
+     <g><circle cx="62" cy="39" r="9" fill="${G}" opacity=".2"/><circle cx="62" cy="39" r="4" fill="${G}"/><circle cx="140" cy="40" r="9" fill="${G}" opacity=".2"/><circle cx="140" cy="40" r="4" fill="${G}"/><circle cx="218" cy="30" r="9" fill="${G}" opacity=".2"/><circle cx="218" cy="30" r="4" fill="${G}"/><circle cx="296" cy="24" r="9" fill="${G}" opacity=".2"/><circle cx="296" cy="24" r="4" fill="${G}"/><circle cx="368" cy="33" r="9" fill="${G}" opacity=".2"/><circle cx="368" cy="33" r="4" fill="${G}"/></g>
+     <line x1="30" y1="88" x2="148" y2="88" stroke="${GS}" stroke-width="3"/>
+     <g><rect x="42" y="62" width="11" height="26" rx="2" fill="${O}"/><rect x="46" y="54" width="3" height="10" fill="${O}"/><rect x="66" y="58" width="11" height="30" rx="2" fill="${G}"/><rect x="70" y="50" width="3" height="10" fill="${G}"/><rect x="90" y="66" width="11" height="22" rx="2" fill="${GS}"/><rect x="94" y="58" width="3" height="10" fill="${GS}"/><rect x="114" y="60" width="11" height="28" rx="2" fill="${OD}"/><rect x="118" y="52" width="3" height="10" fill="${OD}"/></g>
+     <rect x="298" y="52" width="56" height="70" fill="${C}" stroke="${G}" stroke-width="3"/>
+     <circle cx="326" cy="76" r="10" fill="${O}"/>
+     <g stroke="${G}" stroke-width="2"><line x1="326" y1="62" x2="326" y2="56"/><line x1="314" y1="66" x2="310" y2="62"/><line x1="338" y1="66" x2="342" y2="62"/></g>
+     <rect x="304" y="92" width="44" height="8" fill="${N}"/>
+     <text x="326" y="114" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="8" letter-spacing="2" fill="${N}">THE WAY</text>
+     <rect y="180" width="400" height="20" fill="${DK}"/>
+     ${fig(138,180,C)}
+     ${fig(262,180,O)}
+     <line x1="147" y1="148" x2="168" y2="128" stroke="${C}" stroke-width="5" stroke-linecap="round"/>
+     <line x1="253" y1="148" x2="232" y2="128" stroke="${O}" stroke-width="5" stroke-linecap="round"/>
+     <path d="M164 112 h16 v14 q0 5 -8 5 q-8 0 -8 -5 Z" fill="${O}" stroke="${C}" stroke-width="2"/>
+     <path d="M220 112 h16 v14 q0 5 -8 5 q-8 0 -8 -5 Z" fill="${G}" stroke="${C}" stroke-width="2"/>
+     <g stroke="${G}" stroke-width="2.5" stroke-linecap="round"><line x1="195" y1="102" x2="205" y2="112"/><line x1="205" y1="102" x2="195" y2="112"/><line x1="200" y1="98" x2="200" y2="116"/></g>
+     <ellipse cx="200" cy="158" rx="66" ry="12" fill="${GS}"/>
+     <rect x="196" y="158" width="8" height="24" fill="${GS}"/>
+     <ellipse cx="200" cy="184" rx="22" ry="5" fill="${GS}"/>`,
+  /* 7 · El Mercado — striped awning, textiles, hats, price tag, vendor */
+  7:`${sun(354,44,12)}
+     <rect y="168" width="400" height="32" fill="${N}"/>
+     <path d="M38 42 L322 42 L310 84 L50 84 Z" fill="${C}" stroke="${N}" stroke-width="3"/>
+     <path d="M78 42 L70 84 L102 84 L108 42 Z" fill="${O}"/>
+     <path d="M148 42 L144 84 L176 84 L178 42 Z" fill="${O}"/>
+     <path d="M218 42 L218 84 L250 84 L246 42 Z" fill="${O}"/>
+     <path d="M50 84 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0 q13 11 26 0" fill="none" stroke="${N}" stroke-width="3"/>
+     <line x1="56" y1="90" x2="56" y2="168" stroke="${N}" stroke-width="4"/>
+     <line x1="306" y1="90" x2="306" y2="168" stroke="${N}" stroke-width="4"/>
+     <g stroke="${N}" stroke-width="2"><rect x="66" y="94" width="26" height="46" fill="${O}"/><rect x="98" y="94" width="26" height="46" fill="${G}"/><rect x="130" y="94" width="26" height="46" fill="${GS}"/></g>
+     <g stroke="${C}" stroke-width="2.5"><line x1="66" y1="108" x2="92" y2="108"/><line x1="66" y1="122" x2="92" y2="122"/><line x1="98" y1="112" x2="124" y2="112"/><line x1="130" y1="106" x2="156" y2="106"/><line x1="130" y1="126" x2="156" y2="126"/></g>
+     <rect x="160" y="130" width="150" height="11" rx="3" fill="${N}"/>
+     <rect x="166" y="141" width="138" height="27" fill="${P}" stroke="${N}" stroke-width="3"/>
+     <g fill="${OD}"><rect x="178" y="141" width="9" height="27"/><rect x="208" y="141" width="9" height="27"/><rect x="238" y="141" width="9" height="27"/><rect x="268" y="141" width="9" height="27"/></g>
+     <ellipse cx="204" cy="126" rx="30" ry="8" fill="${G}" stroke="${OD}" stroke-width="2"/>
+     <path d="M188 124 Q204 102 220 124 Z" fill="${G}" stroke="${OD}" stroke-width="2"/>
+     <ellipse cx="204" cy="115" rx="9" ry="3" fill="${OD}"/>
+     <ellipse cx="262" cy="128" rx="22" ry="6" fill="${OD}"/>
+     <path d="M250 126 Q262 110 274 126 Z" fill="${OD}"/>
+     <g transform="rotate(12 268 92)"><path d="M240 82 L282 82 L292 92 L282 102 L240 102 Z" fill="${P}" stroke="${N}" stroke-width="2.5"/><circle cx="285" cy="92" r="2.2" fill="${N}"/><text x="259" y="97" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="12" fill="${OD}">$80</text></g>
+     <path d="M290 84 Q276 96 262 106" stroke="${N}" stroke-width="1.5" fill="none" stroke-dasharray="3 4"/>
+     ${fig(346,168,N)}
+     <circle cx="346" cy="110" r="4.5" fill="${N}"/>
+     <line x1="337" y1="140" x2="318" y2="130" stroke="${N}" stroke-width="5" stroke-linecap="round"/>
+     <path d="M78 168 a19 11 0 0 0 38 0 Z" fill="${GS}" stroke="${OD}" stroke-width="2"/>
+     <circle cx="88" cy="164" r="5.5" fill="${O}"/><circle cx="98" cy="161" r="5.5" fill="${O}"/><circle cx="108" cy="164" r="5.5" fill="${O}"/>`,
+  /* 8 · La Sobremesa — candlelit dinner, storyteller mid-gesture */
+  8:`<rect width="400" height="200" fill="${N}"/>
+     <g fill="${C}"><circle cx="46" cy="30" r="1.6" opacity=".9"/><circle cx="110" cy="18" r="1.3" opacity=".7"/><circle cx="250" cy="22" r="1.6" opacity=".8"/><circle cx="310" cy="14" r="1.2" opacity=".7"/><circle cx="376" cy="52" r="1.5" opacity=".8"/><circle cx="180" cy="12" r="1.2" opacity=".6"/></g>
+     <circle cx="344" cy="40" r="16" fill="${C}"/><circle cx="337" cy="36" r="13" fill="${N}"/>
+     <ellipse cx="200" cy="116" rx="124" ry="42" fill="${G}" opacity=".07"/>
+     <circle cx="130" cy="84" r="9" fill="${GS}"/><path d="M110 120 Q130 92 150 120 Z" fill="${GS}"/>
+     <circle cx="202" cy="72" r="9" fill="${C}"/><path d="M182 120 Q202 88 222 120 Z" fill="${C}"/>
+     <line x1="216" y1="96" x2="238" y2="74" stroke="${C}" stroke-width="5" stroke-linecap="round"/>
+     <circle cx="274" cy="84" r="9" fill="${O}"/><path d="M254 120 Q274 92 294 120 Z" fill="${O}"/>
+     <path d="M86 118 L314 118 L322 134 L78 134 Z" fill="${P}"/>
+     <line x1="96" y1="134" x2="94" y2="172" stroke="${GS}" stroke-width="4"/>
+     <line x1="304" y1="134" x2="306" y2="172" stroke="${GS}" stroke-width="4"/>
+     <circle cx="152" cy="94" r="9" fill="${G}" opacity=".3"/>
+     <rect x="149" y="96" width="6" height="20" fill="${C}"/><ellipse cx="152" cy="90" rx="3.5" ry="6" fill="${O}"/>
+     <circle cx="246" cy="92" r="9" fill="${G}" opacity=".3"/>
+     <rect x="243" y="94" width="6" height="22" fill="${C}"/><ellipse cx="246" cy="88" rx="3.5" ry="6" fill="${O}"/>
+     <rect x="194" y="88" width="13" height="30" rx="3" fill="${DK}" stroke="${GS}" stroke-width="1.5"/><rect x="198" y="78" width="5" height="12" fill="${DK}"/>
+     <path d="M170 100 q0 11 8 11 q8 0 8 -11 Z" fill="${O}" stroke="${C}" stroke-width="1.5"/><line x1="178" y1="111" x2="178" y2="117" stroke="${C}" stroke-width="1.5"/>
+     <path d="M216 100 q0 11 8 11 q8 0 8 -11 Z" fill="${O}" stroke="${C}" stroke-width="1.5"/><line x1="224" y1="111" x2="224" y2="117" stroke="${C}" stroke-width="1.5"/>
+     <ellipse cx="118" cy="122" rx="15" ry="4" fill="${C}" opacity=".9"/>
+     <ellipse cx="284" cy="122" rx="15" ry="4" fill="${C}" opacity=".9"/>
+     <rect y="172" width="400" height="28" fill="${DK}"/>`,
+  /* 9 · El Problema en el Hotel — 11pm lobby, clock, one lonely key */
+  9:`<rect width="400" height="200" fill="${N}"/>
+     <g fill="${C}"><circle cx="160" cy="24" r="1.4" opacity=".7"/><circle cx="262" cy="18" r="1.4" opacity=".7"/><circle cx="382" cy="30" r="1.4" opacity=".7"/></g>
+     <rect x="34" y="38" width="72" height="74" fill="${DK}" stroke="${G}" stroke-width="2.5"/>
+     <line x1="70" y1="38" x2="70" y2="112" stroke="${G}" stroke-width="2"/>
+     <line x1="34" y1="75" x2="106" y2="75" stroke="${G}" stroke-width="2"/>
+     <circle cx="54" cy="58" r="9" fill="${C}"/><circle cx="50" cy="55" r="7" fill="${DK}"/>
+     <g fill="${G}" opacity=".8"><rect x="82" y="88" width="5" height="5"/><rect x="92" y="94" width="5" height="5"/><rect x="42" y="92" width="5" height="5"/></g>
+     <circle cx="205" cy="52" r="17" fill="${C}" stroke="${G}" stroke-width="3"/>
+     <line x1="205" y1="52" x2="197" y2="45" stroke="${N}" stroke-width="3" stroke-linecap="round"/>
+     <line x1="205" y1="52" x2="205" y2="39" stroke="${N}" stroke-width="2" stroke-linecap="round"/>
+     <text x="205" y="84" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="9" letter-spacing="2" fill="${GS}">11 PM</text>
+     <rect x="296" y="56" width="66" height="56" rx="4" fill="${P}" stroke="${G}" stroke-width="2.5"/>
+     <g fill="${N}" opacity=".35"><circle cx="310" cy="68" r="2"/><circle cx="330" cy="68" r="2"/><circle cx="350" cy="68" r="2"/></g>
+     <circle cx="316" cy="88" r="7" fill="none" stroke="${OD}" stroke-width="3.5"/>
+     <rect x="322" y="85" width="20" height="6" fill="${OD}"/><rect x="336" y="91" width="4" height="6" fill="${OD}"/>
+     <circle cx="210" cy="102" r="8" fill="${C}"/>
+     <path d="M193 122 Q210 108 227 122 Z" fill="${C}"/>
+     <rect x="134" y="118" width="152" height="12" rx="3" fill="${GS}"/>
+     <rect x="142" y="130" width="136" height="42" fill="${P}" stroke="${G}" stroke-width="2.5"/>
+     <path d="M246 116 a9 9 0 0 1 18 0 Z" fill="${G}" stroke="${N}" stroke-width="1.5"/>
+     ${fig(84,172,O)}
+     <rect x="100" y="146" width="20" height="26" rx="3" fill="${G}" stroke="${DK}" stroke-width="2"/>
+     <rect y="172" width="400" height="28" fill="${DK}"/>`,
+  /* 10 · La Despedida — sunset plaza, the group, the traveler, the Way goes on */
+  10:`<rect y="66" width="400" height="46" fill="${G}" opacity=".16"/>
+     <rect y="100" width="400" height="34" fill="${O}" opacity=".12"/>
+     <circle cx="200" cy="134" r="46" fill="${O}"/>
+     <g stroke="${G}" stroke-width="3.5" stroke-linecap="round"><line x1="200" y1="80" x2="200" y2="56"/><line x1="156" y1="96" x2="138" y2="80"/><line x1="244" y1="96" x2="262" y2="80"/><line x1="132" y1="130" x2="106" y2="126"/><line x1="268" y1="130" x2="294" y2="126"/></g>
+     <g fill="${N}"><rect x="48" y="88" width="20" height="46"/><path d="M48 88 L58 68 L68 88 Z"/><rect x="82" y="100" width="34" height="34"/><path d="M82 100 Q99 80 116 100 Z"/><rect x="298" y="94" width="24" height="40"/><path d="M298 94 L310 76 L322 94 Z"/><rect x="336" y="108" width="28" height="26"/></g>
+     <g stroke="${N}" stroke-width="2"><line x1="58" y1="60" x2="58" y2="68"/><line x1="54" y1="63" x2="62" y2="63"/></g>
+     <rect y="134" width="400" height="66" fill="${N}"/>
+     <path d="M56 178 Q200 158 390 174" stroke="${G}" stroke-width="3" stroke-dasharray="2 9" fill="none" stroke-linecap="round"/>
+     <line x1="146" y1="134" x2="146" y2="92" stroke="${DK}" stroke-width="4"/>
+     <circle cx="146" cy="86" r="7" fill="${G}"/><circle cx="146" cy="86" r="13" fill="${G}" opacity=".25"/>
+     ${fig(66,172,OD)}
+     ${fig(94,170,GS)}
+     ${fig(120,173,C)}
+     <line x1="75" y1="140" x2="88" y2="126" stroke="${OD}" stroke-width="5" stroke-linecap="round"/>
+     <line x1="103" y1="138" x2="116" y2="124" stroke="${GS}" stroke-width="5" stroke-linecap="round"/>
+     ${fig(300,174,C)}
+     <rect x="306" y="136" width="15" height="22" rx="4" fill="${O}" stroke="${DK}" stroke-width="2"/>
+     <line x1="291" y1="146" x2="276" y2="130" stroke="${C}" stroke-width="5" stroke-linecap="round"/>
+     <rect x="322" y="150" width="18" height="24" rx="3" fill="${G}" stroke="${DK}" stroke-width="2"/>
+     <g stroke="${C}" stroke-width="2" fill="none"><path d="M330 54 q5 -5 10 0 q5 -5 10 0"/><path d="M356 42 q4 -4 8 0 q4 -4 8 0"/></g>`
+  };
+  return '<svg viewBox="0 0 400 200" role="img" aria-label="Scene illustration">'
+    + `<rect width="400" height="200" fill="${C}"/>`
+    + (A[id]||'')
+    + `<rect x="4.5" y="4.5" width="391" height="191" fill="none" stroke="${G}" stroke-width="1.5" opacity=".55"/>`
+    + '</svg>';
+}
+
+/* ================= GAME DATA ================= */
+/* Each stop holds a LIST of scenes — add variants B/C later without touching the engine. */
+/* option.out: 'advance' | 'retry' | 'end'. option.trap: lesson entry for the notebook. */
+const STOPS = [
+{ id:1, name:"La Llegada", threshold:2, scenes:[{
+  setting:"You just landed. A driver is holding a sign with your name. He smiles:",
+  npc:"¡Hola! ¡Bienvenido! ¿Qué tal el vuelo?",
+  npcEn:"Hi! Welcome! How was the flight?",
+  prompt:"What do you do?",
+  notebook:{es:"Muy bien, gracias. ¿Y usted?", en:"Very well, thanks. And you?"},
+  options:[
+   {lvl:1, action:true, text:"Smile, wave, and point at the sign.", out:"retry",
+    fb:"He smiled back... awkwardly. Effective? Kind of. But the Way is walked with words. Try again!"},
+   {lvl:2, text:"Eh... ¡hola! Bien... bien.", out:"advance",
+    fb:"¡Eso! Two words of Spanish and you're officially on the Way. Vamos."},
+   {lvl:3, text:"¡Hola! Muy bien, gracias. ¿Y usted?", out:"advance",
+    fb:"Smooth. The driver already likes you. En marcha."},
+   {lvl:4, text:"¡Hola! Largo, pero bien. ¿Usted es mi conductor?", out:"advance",
+    fb:"Natural and confident — you sound like you've done this before."},
+   {lvl:5, text:"¡Por fin llegué! El vuelo bien, aunque no dormí nada. ¿Cómo está el tráfico hoy?", out:"advance",
+    fb:"Complaining about sleep AND asking about traffic? You're basically a local already."}
+  ]}]},
+{ id:2, name:"El Taxi", threshold:2, scenes:[{
+  setting:"You hop in. The driver looks at you through the mirror:",
+  npc:"¿A dónde lo llevo?",
+  npcEn:"Where can I take you?",
+  prompt:"What do you do?",
+  notebook:{es:"Al Hotel Central, por favor. ¿Cuánto cuesta más o menos?", en:"To Hotel Central, please. Roughly how much is it?"},
+  options:[
+   {lvl:1, action:true, text:"Show him the address on your phone without a word.", out:"retry",
+    fb:"Hey, it works — but your phone is doing all the talking. On the Way, YOU talk. One more try."},
+   {lvl:2, text:"Hotel... Hotel Central... ¿por favor?", out:"advance",
+    fb:"¡Perfecto! Broken but brave — that's how everyone starts. Avanzás."},
+   {lvl:3, text:"Al Hotel Central, por favor. ¿Cuánto cuesta más o menos?", out:"advance",
+    fb:"Asking the price BEFORE the ride? You've read about taxis abroad. Bien jugado."},
+   {lvl:4, text:"¿Me lleva al Hotel Central? ¿Está muy lejos?", out:"advance",
+    fb:"Polite, natural, and gathering intel. The driver nods with respect."},
+   {lvl:5, text:"Al Hotel Central, maestro. ¿Mucho tráfico a esta hora o llegamos rápido?", out:"advance",
+    fb:"'Maestro'?? Where did you learn that? The driver is now your friend for life."}
+  ]}]},
+{ id:3, name:"El Hotel", threshold:2, scenes:[{
+  setting:"The receptionist looks up:",
+  npc:"Buenas tardes, ¿tiene una reserva?",
+  npcEn:"Good afternoon, do you have a reservation?",
+  prompt:"What do you do?",
+  notebook:{es:"Tengo una reserva a nombre de Smith.", en:"I have a reservation under Smith."},
+  options:[
+   {lvl:1, action:true, text:"Slide your passport across the desk in silence.", out:"retry",
+    fb:"She checks you in... but she also thinks you might be a spy. Words, traveler. Try again."},
+   {lvl:2, text:"Sí... reserva... Smith.", out:"advance",
+    fb:"Minimalist, but it works. Room key acquired. ¡Seguimos!"},
+   {lvl:3, text:"Sí, tengo una reserva a nombre de Smith.", out:"advance",
+    fb:"Textbook-perfect. The receptionist smiles. Onward."},
+   {lvl:4, text:"¡Sí! Reserva para Smith. Es mi primera vez en el país y estoy muy excitado de estar aquí.", out:"advance",
+    trap:{es:"excitado ≠ excited → emocionado", en:"'Excitado' means aroused. For excited, say 'emocionado'."},
+    fb:"Oof. <b>'Excitado'</b> means... something spicier 🌶️. You wanted <b>'emocionado'</b>. She blushed, but you got your key. Avanzás — con una lección."},
+   {lvl:5, text:"Sí, a nombre de Smith, dos noches. ¿A qué hora es el desayuno? Vengo muerto de hambre.", out:"advance",
+    fb:"'Muerto de hambre' — dramatic AND correct. You're going to do just fine here."}
+  ]}]},
+{ id:4, name:"La Comida Callejera", threshold:2, scenes:[{
+  setting:"The smell is irresistible. The vendor waves you over:",
+  npc:"¡A la orden! ¿Qué le preparo?",
+  npcEn:"At your service! What can I get you?",
+  prompt:"What do you do?",
+  notebook:{es:"¿Qué me recomienda?", en:"What do you recommend?"},
+  options:[
+   {lvl:1, action:true, text:"Point at what the guy next to you is eating.", out:"retry",
+    fb:"The universal move. Respect. But the vendor wants to hear you — and so does the Way. Try again."},
+   {lvl:2, text:"Eso... eso, por favor. (pointing)", out:"advance",
+    fb:"Pointing PLUS 'por favor' — now we're talking. Literally. ¡Buen provecho!"},
+   {lvl:3, text:"Dos empanadas y una limonada, por favor.", out:"advance",
+    fb:"Ordered like a pro. Nothing can stop you now."},
+   {lvl:4, text:"Una empanada, por favor — pero sin preservativos, porque prefiero comer todo natural.", out:"advance",
+    trap:{es:"preservativos ≠ preservatives → conservantes", en:"'Preservativos' are condoms. Food preservatives are 'conservantes'."},
+    fb:"😳 You asked for it without... condoms. The word is <b>'conservantes'</b>. The vendor is still laughing. Avanzás — he gave you extra out of pure joy."},
+   {lvl:5, text:"¿Qué me recomienda usted? Quiero probar lo más local que tenga.", out:"advance",
+    fb:"Asking the vendor for HIS pick — that's how you eat like a local. He just became your food guide."}
+  ]}]},
+{ id:5, name:"Perdido en el Centro", threshold:3, scenes:[{
+  setting:"Your phone just died. No Google Maps. You need to find la Plaza Mayor. There's a friendly-looking man at a newspaper kiosk.",
+  npc:null, npcEn:null,
+  prompt:"What do you say to him?",
+  notebook:{es:"Disculpe, ¿dónde está la Plaza Mayor?", en:"Excuse me, where is the Plaza Mayor?"},
+  options:[
+   {lvl:1, action:true, text:"Show him your dead phone and shrug dramatically.", out:"retry",
+    fb:"He nods with sympathy... and goes back to his newspaper. A dead phone is not a question, traveler. Try again."},
+   {lvl:2, text:"¿Plaza...? ¿Plaza Mayor...?", out:"retry",
+    fb:"He gets the idea, but he's waiting for an actual question. You're one small sentence away — try again."},
+   {lvl:3, text:"Disculpe, ¿dónde está la Plaza Mayor?", out:"advance",
+    fb:"Clear, polite, perfect. He points: 'Derecho, tres cuadras.' You're back on the Way."},
+   {lvl:4, text:"Disculpe, señor... estoy un poco embarazado porque no encuentro la Plaza Mayor. ¿Me puede ayudar?", out:"advance",
+    trap:{es:"embarazado ≠ embarrassed → avergonzado", en:"'Embarazado' means pregnant. For embarrassed, say 'avergonzado'."},
+    fb:"You just told him you're <b>a little bit pregnant</b> 🤰. You wanted <b>'avergonzado'</b> (embarrassed). He laughed for a full minute — then walked you there personally. Avanzás, con la mejor anécdota del viaje."},
+   {lvl:5, text:"Disculpe, ¿me ayuda? Busco la Plaza Mayor — me quedé sin batería y sin orgullo.", out:"advance",
+    fb:"'Sin batería y sin orgullo' — self-deprecating humor in Spanish? That's advanced charm. He gives you directions AND a coffee recommendation."}
+  ]}]},
+{ id:6, name:"El Bar de la Esquina", threshold:3, scenes:[{
+  setting:"You're at a bar. A friendly group invites you to join. A young guy raises his glass:",
+  npc:"¿Y tú qué? ¿De dónde eres? ¿Qué haces por acá?",
+  npcEn:"And you? Where are you from? What brings you around here?",
+  prompt:"What do you do?",
+  notebook:{es:"Estoy de vacaciones, conociendo la ciudad.", en:"I'm on vacation, getting to know the city."},
+  options:[
+   {lvl:1, action:true, text:"Raise your glass and smile mysteriously.", out:"retry",
+    fb:"Mysterious works in movies. At this table, they just moved on to another topic. Try again — say something!"},
+   {lvl:2, text:"Soy... Estados Unidos. Trabajo... computadoras.", out:"retry",
+    fb:"They understood you! But the conversation needs a little more fuel. One more try — tell them something."},
+   {lvl:3, text:"Soy de Houston. Estoy de vacaciones, conociendo la ciudad.", out:"advance",
+    fb:"Simple, clear, and the table nods. 'Ah, ¡Houston!' — now they have questions. You're IN."},
+   {lvl:4, text:"De Houston, Texas. Vine por trabajo, pero me quedé unos días extra porque me encantó esto — la comida, la gente, todo.", out:"advance",
+    fb:"Work + staying longer because you love it here? Best compliment you can give a local. Drinks incoming."},
+   {lvl:5, text:"De Houston. Llevo tres días aquí y ya no me quiero ir. ¿Eso es normal o me pasa solo a mí?", out:"advance",
+    fb:"Turning the question back to the table with humor? That's not Spanish class — that's just being good at parties."}
+  ]}]},
+{ id:7, name:"El Mercado de Artesanías", threshold:3, scenes:[{
+  setting:"You found the perfect handmade hat. The vendor, a sharp older woman, says:",
+  npc:"Ese le queda precioso. Se lo dejo en ochenta.",
+  npcEn:"That looks lovely on you. I'll let it go for eighty.",
+  prompt:"Eighty feels steep. <span class='hint'>What's your move?</span>",
+  notebook:{es:"Uy, es mucho. ¿Me lo deja en sesenta?", en:"Oof, that's a lot. Would you take sixty?"},
+  options:[
+   {lvl:1, action:true, text:"Pull out 80 in cash and pay without a word.", out:"retry",
+    fb:"You paid full tourist price without blinking. She loved it. Your wallet didn't. To walk further on the Way, you need to negotiate. Try again."},
+   {lvl:2, text:"No... mucho. ¿Menos?", out:"retry",
+    fb:"She sees you're trying and drops it to 75. Progress! But real negotiation needs a real sentence. Try again."},
+   {lvl:3, text:"Uy, es mucho. ¿Me lo deja en sesenta?", out:"advance",
+    fb:"Seven words, one counter-offer — a real negotiation. You settle at 65. She respects you now."},
+   {lvl:4, text:"Señora, yo pienso que es demasiado caro. En la otra tienda yo miré un sombrero más barata y el vendedor es muy amable conmigo ayer.", out:"end",
+    trap:{es:"vi (no 'miré') · más barato · ayer + fue", en:"'Vi' (not 'miré') for seeing · 'barato' matches 'sombrero' · 'ayer' needs past tense: 'fue'."},
+    fb:"Three problems: you <b>watched</b> a hat instead of seeing one (<b>'vi'</b>), the hat changed gender (<b>'más barato'</b>), and 'ayer' needs past tense (<b>'fue'</b>). She noticed all three, smiled like a shark, and held firm at 78. You paid. The Way ends here — but now you know exactly what to fix."},
+   {lvl:5, text:"Precioso sí está — usted sabe vender. Pero mi presupuesto dice sesenta. ¿Llegamos a un acuerdo, o me voy a llorar a otro puesto?", out:"advance",
+    fb:"Complimenting her sales skills WHILE lowballing? She laughed, took 62, and threw in a keychain. Master class."}
+  ]}]},
+{ id:8, name:"La Sobremesa", threshold:3, scenes:[{
+  setting:"Dinner with your new friends. Someone says:",
+  npc:"A ver, cuéntanos — ¿qué es lo más loco que te ha pasado en este viaje?",
+  npcEn:"Come on, tell us — what's the craziest thing that's happened to you on this trip?",
+  prompt:"All eyes on you. <span class='hint'>Time to tell a story — in the past tense.</span>",
+  notebook:{es:"Me di cuenta de que...", en:"I realized that... (never 'realicé')"},
+  options:[
+   {lvl:1, text:"Es... una historia muy larga. (nervous laugh)", out:"retry",
+    fb:"The table waits... you say nothing more. Someone changes the subject. A story died tonight. Try again — tell them ANYTHING."},
+   {lvl:2, text:"Ayer yo... perder... mi teléfono. Muy loco.", out:"retry",
+    fb:"They got the headline, but the story deserves a verb in the past. Try again — 'perdí'."},
+   {lvl:3, text:"Ayer perdí el teléfono en el mercado — y un vendedor me lo devolvió.", out:"advance",
+    fb:"Short, past tense, happy ending. A real story. '¡Qué suerte!'"},
+   {lvl:4, text:"El primer día fue increíble. Caminé como cinco horas por toda la ciudad, y en un momento realicé que estaba completamente perdido, sin batería y sin mapa.", out:"advance",
+    trap:{es:"realicé ≠ I realized → me di cuenta", en:"'Realicé' means I carried out. For I realized, say 'me di cuenta'."},
+    fb:"Great story... but <b>'realicé'</b> means <i>I carried out</i>, not <i>I realized</i>. You wanted <b>'me di cuenta'</b>. Classic English trap — the table understood you anyway. Avanzás, con la lección del día."},
+   {lvl:5, text:"¿Lo más loco? Le dije a un señor que estaba 'embarazado'. Casi se muere de risa — y me acompañó hasta la plaza.", out:"advance",
+    fb:"Wait — you're telling THE STORY FROM STOP 5?? Self-aware, in perfect past tense, and the table is crying laughing. Legendary."}
+  ]}]},
+{ id:9, name:"El Problema en el Hotel", threshold:4, scenes:[{
+  setting:"You return to your hotel at 11pm. The receptionist looks uncomfortable:",
+  npc:"Señor, disculpe... hubo un error con su reserva. Su habitación fue asignada a otra persona. Solo nos queda una habitación sencilla, sin ventana.",
+  npcEn:"Sir, I'm sorry... there was an error with your reservation. Your room was assigned to someone else. We only have a single room left, with no window.",
+  prompt:"You booked and paid for a double with a view. <span class='hint'>Handle it.</span>",
+  notebook:{es:"¿Qué solución me puede ofrecer?", en:"What solution can you offer me?"},
+  options:[
+   {lvl:1, action:true, text:"Sigh, take the key to the windowless room, and walk away.", out:"retry",
+    fb:"You slept in a cave and paid for a view. Sometimes surviving isn't enough — the Way demands you speak up. Try again."},
+   {lvl:2, text:"No... no. Yo pago... habitación grande. No es correcto.", out:"retry",
+    fb:"Your frustration is clear, your Spanish is close — but he needs a concrete request to act on. Try again."},
+   {lvl:3, text:"Señor, yo ser muy enojado porque la habitación es rotada. Yo pagué para habitación mucho grande con vista y esta habitación es muy pequeño. ¿Yo poder tener un descuente?", out:"end",
+    trap:{es:"estoy (no 'yo ser') · pagué por · muy grande · pequeña · descuento", en:"Conjugate: 'estoy', 'puedo' · 'rotada' isn't a word · 'pagué por' · 'muy grande' · 'pequeña' · 'descuento'."},
+    fb:"The pressure broke your Spanish: <b>'ser'</b> and <b>'poder'</b> need conjugating (<b>'estoy'</b>, <b>'puedo'</b>) — infinitives are for dictionaries, not arguments; nothing is 'rotada' (not a word — and the room isn't broken, it was given away); it's 'pagué <b>por</b> una habitación'; '<b>muy</b> grande', never 'mucho grande'; 'habitación' is feminine — <b>'pequeña'</b>; and that last word is <b>'descuento'</b>. The receptionist understood the anger, missed the request, and handed you the key to the cave. The Way ends here — one stop from the summit."},
+   {lvl:4, text:"Entiendo que no es su culpa, pero yo reservé y pagué una doble con vista. ¿Qué solución me puede ofrecer? ¿Un descuento, o un cambio mañana a primera hora?", out:"advance",
+    fb:"Calm + firm + proposing solutions = negotiation at its finest. Free breakfast, room upgrade tomorrow at 8am. THIS is fluency."},
+   {lvl:5, text:"Uy, estas cosas pasan — no se preocupe, no es su culpa. Pero pagué una doble con vista, así que ayúdeme a encontrar una solución: ¿descuento esta noche y me cambia mañana? Así los dos dormimos tranquilos.", out:"advance",
+    fb:"'Así los dos dormimos tranquilos' — empathy, firmness, and a joke, at 11pm, in your second language. The receptionist upgraded you AND sent up a bottle of wine."}
+  ]}]},
+{ id:10, name:"La Despedida", threshold:4, scenes:[{
+  setting:"Last night. Your new friends walk you to the plaza. One of them says:",
+  npc:"Oye... ¿y si te quedas una semana más? Lo estamos pasando increíble contigo.",
+  npcEn:"Hey... what if you stay one more week? We're having an amazing time with you.",
+  prompt:"Your flight is tomorrow. <span class='hint'>Say goodbye — like it matters.</span>",
+  notebook:{es:"Si pudiera, me quedaría.", en:"If I could, I would stay."},
+  options:[
+   {lvl:1, action:true, text:"Hug everyone in silence, holding back tears.", out:"retry",
+    fb:"Beautiful. Wordless. But after ten stops on the Way, you've earned the words — use them. Try again."},
+   {lvl:2, text:"No puedo... trabajo. Gracias... por todo. Muy bueno.", out:"retry",
+    fb:"They felt it, they really did. But this moment deserves full sentences. One more try."},
+   {lvl:3, text:"Me encantaría, pero tengo que volver al trabajo. Muchas gracias por todo, de verdad — fue increíble.", out:"end",
+    fb:"Warm, correct, complete... and yet — after this journey, the Way asks for something with more soul. It ends here, one step from the top."},
+   {lvl:4, text:"Si pudiera, me quedaría sin pensarlo. Pero les prometo algo: vuelvo el año que viene, y la primera ronda la pago yo.", out:"advance",
+    fb:"A conditional, a promise, and a free round? THAT'S how you say goodbye. The table erupts. You finished the Way."},
+   {lvl:5, text:"No me digas eso, que soy capaz de perder el vuelo... Hablando en serio: llegué sin saber pedir un taxi y me voy con amigos. Eso no me lo esperaba. Nos vemos el año que viene — lo prometo.", out:"advance",
+    fb:"You just told the story of your own journey, with humor, real emotion, and a promise. The Way didn't test you — you OWNED it. 🌅"}
+  ]}]}
+];
+
+/* ================= RESULT TIERS ================= */
+const TIERS = [
+ { emoji:"🧳", title:"The Brave First Steps",
+   msg:"You survived the airport... barely. But hey — you got on the plane, and that's more than most people ever do.",
+   cta:"Everyone's Way starts exactly where you are. Imagine landing in this city again and cruising through every stop — that's what we build in class, one real situation at a time.",
+   btn:"Book a free trial class",
+   share:(s)=>`I made it to stop ${s} of 10 on the Way 😅✈️ How far can you get?` },
+ { emoji:"🌮", title:"Fed & Housed",
+   msg:"You won't go hungry or homeless — and you made a street vendor's day. That's a genuinely solid start.",
+   cta:"You can survive a trip. The next level is enjoying one — making friends, telling stories, negotiating like a local. That jump is exactly what we work on.",
+   btn:"Book a free trial class",
+   share:(s)=>`I can officially order street food in Spanish 🌮 Made it to stop ${s} of 10 on the Way. How far can you get?` },
+ { emoji:"🗺️", title:"The City Navigator",
+   msg:"You can cross a city AND win over a table of strangers. You're doing better than you think.",
+   cta:"You're at the exact point where Spanish stops being survival and starts being fun. This is the best moment to invest in it — everything from here is conversation.",
+   btn:"Book a free trial class",
+   share:(s)=>`Made it to stop ${s} of 10 on the Way 🗺️ — I can navigate a city AND make friends in Spanish. Your turn.` },
+ { emoji:"🧺", title:"The Negotiator",
+   msg:"You can haggle, tell stories, and hold your own with locals. Most learners never get this far.",
+   cta:"You fell exactly where strong intermediate speakers fall — the fine details under pressure. That's not a knowledge problem, it's a practice problem, and it's very fixable.",
+   btn:"Book a free trial class",
+   share:(s)=>`Stop ${s} of 10 on the Way 🧺 I can haggle in Spanish (almost). Can you beat me?` },
+ { emoji:"🔑", title:"One Step from the Summit",
+   msg:"You handled almost everything the city threw at you — and lost the Way at the very hardest part. That stings, doesn't it?",
+   cta:"At your level it's no longer about grammar — it's about mastering real situations under pressure: complaints, negotiations, goodbyes that matter. That's exactly what advanced conversation work is for.",
+   btn:"Book a free trial class",
+   share:(s)=>`I made it to stop ${s} of 10 on the Way and fell AT THE END 🔑😤 Someone please beat this.` },
+ { emoji:"🌅", title:"You Own the Way",
+   msg:"Ten stops. Real situations. False friends dodged. You didn't just survive this city — you made friends and promised to come back. You're ready for real conversations.",
+   cta:"You clearly don't need survival Spanish. But if you want to go from fluent to unmistakably natural — or keep your Spanish sharp between trips — that's what my advanced students come for.",
+   btn:"Book a free trial class",
+   share:()=>`I completed the Way 🌅 All 10 stops, in Spanish. Think you can do it?` }
+];
+
+/* ================= STATE ================= */
+let S = null;
+function freshState(){
+  return {
+    stop:0,               // index into STOPS
+    scene:null,           // active scene object
+    shuffled:[],          // shuffled option order
+    usedIdx:[],           // options already tried this scene
+    retried:false,        // second chance spent on this scene?
+    lives:MAX_LIVES,
+    revealed:false,       // translation shown for this scene (free re-show)
+    notes:[],             // notebook: {es,en,trap:bool}
+    completed:false
+  };
+}
+
+/* ================= HELPERS ================= */
+const $ = (id)=>document.getElementById(id);
+function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+function esc(t){ return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* --- NPC voice: José's own recordings first, browser speech as fallback ---
+   Drop MP3 files named stop-1.mp3 ... stop-10.mp3 into an /audio/ folder
+   next to this HTML file. If a file is missing, synthetic speech kicks in. */
+const AUDIO_BASE = "audio/";
+const audioCache = {};
+let VOICE=null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  const es = vs.filter(v=>v.lang && v.lang.toLowerCase().replace("_","-").startsWith("es"));
+  if(!es.length){ VOICE=null; return; }
+  const score = v=>{
+    const n=(v.name||"").toLowerCase(), l=v.lang.replace("_","-");
+    let s=0;
+    if(/natural|neural|premium|enhanced|online/.test(n)) s+=40;
+    if(n.includes("google")) s+=30;
+    if(/paulina|m[oó]nica|sabina|luciana|helena|dalia|jorge|diego|camila|elvira/.test(n)) s+=15;
+    if(/^es-(CO|MX)/i.test(l)) s+=12; else if(/^es-(US|419)/i.test(l)) s+=8; else if(/^es-ES/i.test(l)) s+=4;
+    if(v.localService===false) s+=6;
+    return s;
+  };
+  VOICE = es.sort((a,b)=>score(b)-score(a))[0];
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if(VOICE){ u.voice = VOICE; u.lang = VOICE.lang; } else { u.lang = "es-MX"; }
+  u.rate = 0.95; u.pitch = 1.02;
+  speechSynthesis.speak(u);
+}
+function playNPC(stopId, text){
+  const src = AUDIO_BASE + "stop-" + stopId + ".mp3";
+  if(audioCache[src] === false){ speak(text); return; }
+  let a = audioCache[src];
+  if(!a){
+    a = new Audio(src);
+    audioCache[src] = a;
+    a.addEventListener("error", ()=>{ audioCache[src] = false; speak(text); }, {once:true});
+  }
+  a.currentTime = 0;
+  const p = a.play();
+  if(p && p.catch) p.catch(()=>{ if(!(audioCache[src] instanceof Audio) || audioCache[src].error){ audioCache[src]=false; } speak(text); });
+}
+
+/* ================= ROUTE MAP ================= */
+function mapSVG(currentId, endedId, completed){
+  const W=660, H=96, n=10;
+  const xs=[], ys=[];
+  for(let i=0;i<n;i++){
+    xs.push(46 + i*(W-92)/(n-1));
+    ys.push(52 + Math.sin(i*1.05)*16);
+  }
+  let d = `M ${xs[0]} ${ys[0]}`;
+  for(let i=1;i<n;i++){
+    const cx=(xs[i-1]+xs[i])/2;
+    d += ` C ${cx} ${ys[i-1]}, ${cx} ${ys[i]}, ${xs[i]} ${ys[i]}`;
+  }
+  let nodes="";
+  for(let i=0;i<n;i++){
+    const id=i+1;
+    let fill="var(--paper)", stroke="var(--navy)", txt="var(--navy)", r=12, extra="";
+    if(completed || id < currentId){ fill="var(--orange)"; stroke="var(--orange-deep)"; txt="var(--cream)"; }
+    if(!completed && id===currentId){
+      fill = endedId ? "var(--navy)" : "var(--cream)";
+      stroke = endedId ? "var(--navy)" : "var(--orange)";
+      txt = endedId ? "var(--cream)" : "var(--orange-deep)";
+      r=15;
+      if(!endedId) extra = `<circle cx="${xs[i]}" cy="${ys[i]}" r="20" fill="none" stroke="var(--orange)" stroke-width="2" opacity=".5"/>`;
+    }
+    nodes += extra + `<circle cx="${xs[i]}" cy="${ys[i]}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/>`
+      + `<text class="stopnode" x="${xs[i]}" y="${ys[i]+4.5}" text-anchor="middle" font-size="12" fill="${txt}">${endedId===id && !completed ? "✕" : id}</text>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" aria-label="Route map, stop ${currentId} of 10">
+    <path d="${d}" fill="none" stroke="var(--gold)" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+    ${nodes}</svg>`;
+}
+
+/* ================= RENDER: SCENE ================= */
+function startGame(){
+  S = freshState();
+  $("intro").classList.add("hidden");
+  $("end").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  loadStop();
+}
+
+function loadStop(){
+  const stop = STOPS[S.stop];
+  const variants = stop.scenes;
+  S.scene = variants[Math.floor(Math.random()*variants.length)];
+  S.shuffled = shuffle(S.scene.options.map((o,i)=>i));
+  S.usedIdx = [];
+  S.retried = false;
+  S.revealed = false;
+  renderScene();
+  window.scrollTo({top:0});
+}
+
+function renderScene(){
+  const stop = STOPS[S.stop], sc = S.scene;
+  $("routemap").innerHTML = mapSVG(stop.id, null, false);
+  let h = `<div class="fadein">
+    <div class="eyebrow">Stop ${stop.id} of 10 · lifesavers left: ${"🆘".repeat(S.lives) || "none"}</div>
+    <h2 class="stopname">${stop.name}</h2>
+    <div class="scene-art">${art(stop.id)}</div>
+    <p class="setting">${sc.setting}</p>`;
+  if(sc.npc){
+    h += `<div class="npc">
+      <div class="quote">"${sc.npc}"</div>
+      <div class="npc-tools">
+        <button class="chip" id="audiobtn">🔊 Listen</button>
+        <button class="chip" id="lifebtn">🆘 ¿Qué dijo? (${S.lives})</button>
+      </div>
+      <div class="translation" id="trans">${sc.npcEn}</div>
+    </div>`;
+  }
+  h += `<p class="prompt">${sc.prompt}</p><div class="options" id="opts">`;
+  S.shuffled.forEach(idx=>{
+    const o = sc.options[idx];
+    const used = S.usedIdx.includes(idx);
+    const label = o.action ? `<span class="act">${esc(o.text)}</span>` : `"${esc(o.text)}"`;
+    h += `<button class="opt${used?" used":""}" data-idx="${idx}" ${used?"disabled":""}>${label}</button>`;
+  });
+  h += `</div></div>`;
+  $("scenecard").innerHTML = h;
+
+  // wire events (avoid inline quoting issues)
+  const ab = document.getElementById("audiobtn");
+  if(ab) ab.onclick = ()=>playNPC(stop.id, sc.npc);
+  const lb = document.getElementById("lifebtn");
+  if(lb){
+    if(S.lives<=0 && !S.revealed){ lb.disabled = true; }
+    lb.onclick = ()=>{
+      const t = document.getElementById("trans");
+      if(S.revealed){ t.style.display = t.style.display==="block" ? "none" : "block"; return; }
+      if(S.lives<=0) return;
+      S.lives--; S.revealed = true;
+      t.style.display = "block";
+      lb.textContent = `🆘 ¿Qué dijo? (${S.lives})`;
+      if(S.lives<=0) lb.disabled = false; // still allows toggling since revealed
+      document.querySelector("#scenecard .eyebrow").textContent = `Stop ${stop.id} of 10 · lifesavers left: ${"🆘".repeat(S.lives) || "none"}`;
+    };
+  }
+  document.querySelectorAll("#opts .opt").forEach(b=>{
+    if(!b.disabled) b.onclick = ()=>pick(parseInt(b.dataset.idx,10));
+  });
+}
+
+/* ================= GAME LOGIC ================= */
+function pick(idx){
+  const stop = STOPS[S.stop], sc = S.scene, o = sc.options[idx];
+  S.usedIdx.push(idx);
+
+  if(o.out === "advance"){
+    // notebook: stop phrase + trap lesson if hit
+    S.notes.push({es:sc.notebook.es, en:sc.notebook.en, trap:false});
+    if(o.trap) S.notes.push({es:o.trap.es, en:o.trap.en, trap:true});
+    showFeedback(o, o.trap ? "lesson" : "good",
+      S.stop === STOPS.length-1 ? "See your result 🌅" : "Continue the Way →",
+      ()=>{ 
+        if(S.stop === STOPS.length-1){ S.completed = true; endGame(stop.id); }
+        else { S.stop++; loadStop(); }
+      });
+    return;
+  }
+  if(o.out === "end"){
+    if(o.trap) S.notes.push({es:o.trap.es, en:o.trap.en, trap:true});
+    showFeedback(o, "dead", "See your result", ()=>endGame(stop.id));
+    return;
+  }
+  // retry
+  if(!S.retried){
+    S.retried = true;
+    showFeedback(o, "retry", "Try again", ()=>renderScene());
+  } else {
+    showFeedback(o, "dead", "See your result", ()=>endGame(stop.id));
+  }
+}
+
+function showFeedback(o, kind, btnLabel, next){
+  const stampTxt = {good:"¡Avanzás!", lesson:"Lesson learned", retry:"Second chance", dead:"End of the Way"}[kind];
+  const chose = o.action ? `<span class="act">${esc(o.text)}</span>` : `"${esc(o.text)}"`;
+  const fbEnd = (kind==="dead" && S.retried && o.out==="retry")
+    ? o.fb + "<br><br><b>Two tries, same stop — the Way ends here. But look how far you walked.</b>"
+    : o.fb;
+  $("scenecard").innerHTML = `<div class="feedback ${kind} fadein">
+    <div class="stamp">${stampTxt}</div>
+    <div class="chose">You said: ${chose}</div>
+    <div class="fbtext">${fbEnd}</div>
+    <button class="btn" id="nextbtn">${btnLabel}</button>
+  </div>`;
+  $("nextbtn").onclick = next;
+}
+
+/* ================= END SCREEN ================= */
+function tierFor(endStop, completed){
+  if(completed) return 5;
+  if(endStop<=2) return 0;
+  if(endStop<=4) return 1;
+  if(endStop<=6) return 2;
+  if(endStop<=8) return 3;
+  return 4;
+}
+
+function buildNotebook(){
+  const traps = S.notes.filter(n=>n.trap);
+  const phrases = S.notes.filter(n=>!n.trap).reverse(); // newest first
+  const list = traps.concat(phrases).slice(0,6);
+  if(!list.length) return "";
+  let h = `<div class="libreta"><h3>📓 Tu libreta del Camino</h3>
+    <div class="sub">Real Spanish you picked up on this journey — yours to keep.</div>`;
+  list.forEach(n=>{
+    h += `<div class="entry${n.trap?" trap":""}">
+      <div class="es">${n.trap?"🎣 ":""}${esc(n.es)}</div>
+      <div class="en">${esc(n.en)}</div></div>`;
+  });
+  return h + `</div>`;
+}
+
+function endGame(endStop){
+  const t = TIERS[tierFor(endStop, S.completed)];
+  const shareTxt = t.share(endStop) + " " + GAME_URL;
+  $("game").classList.add("hidden");
+  $("end").classList.remove("hidden");
+  $("endmap").innerHTML = mapSVG(endStop, S.completed?null:endStop, S.completed);
+  let h = `<div class="fadein">
+    <span class="tier-emoji">${t.emoji}</span>
+    <h2>${t.title}</h2>
+    <p class="tiermsg">${t.msg}</p>
+    ${buildNotebook()}
+    <div class="ctabox">
+      <p>${t.cta}</p>
+      <a class="btn" href="${CALENDLY}" target="_blank" rel="noopener">${t.btn} →</a>
+    </div>
+    <div class="toolkit">Not ready for a class? <a href="${TOOLKIT}" target="_blank" rel="noopener">Grab my free Spanish toolkit instead →</a></div>`;
+  if(S.completed){
+    h += `<p class="referral">Know someone who'd love this journey? Send them the Way. 👇</p>`;
+  }
+  h += `<div class="sharebox">
+      <p>Share your result</p>
+      <div class="sharerow">
+        <a class="btn secondary" href="https://wa.me/?text=${encodeURIComponent(shareTxt)}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn secondary" id="copybtn">Copy link</button>
+        <button class="btn" id="againbtn">Play again ↻</button>
+      </div>
+    </div></div>`;
+  $("endcard").innerHTML = h;
+  $("againbtn").onclick = startGame;
+  $("copybtn").onclick = ()=>{
+    const done=()=>{ $("copybtn").textContent="Copied ✓"; setTimeout(()=>$("copybtn").textContent="Copy link",1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(shareTxt).then(done).catch(()=>fallbackCopy(shareTxt,done));
+    } else fallbackCopy(shareTxt,done);
+  };
+  window.scrollTo({top:0});
+}
+function fallbackCopy(text,done){
+  const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
+  ta.select(); try{ document.execCommand("copy"); }catch(e){} document.body.removeChild(ta); done();
+}
+</script>
+</body>
+</html>
