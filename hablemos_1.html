@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hablemos — Session 1 · Words that matter</title>
+  <meta name="description" content="Hablemos — monthly cultural and language program. Session 1 recap.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --terracota: #B85C3A;
+      --terracota-dark: #8E4225;
+      --verde: #2D7A5F;
+      --verde-light: #4A9476;
+      --crema: #F7F0E3;
+      --crema-dark: #EADFCB;
+      --crema-mid: #F0E6D1;
+      --marron: #2E1A0E;
+      --marron-mid: #6B4A2E;
+      --marron-light: #8B6B4E;
+      --linea: #D9C9AE;
+      --linea-soft: #E5D5BC;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--crema);
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(184,92,58,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(45,122,95,0.025) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.08 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+      color: var(--marron);
+      font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ============ LANGUAGE SELECTOR ============ */
+    .lang-selector-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .lang-selector {
+      display: inline-flex;
+      background: var(--crema-dark);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 2px;
+      box-shadow: inset 0 1px 2px rgba(46,26,14,0.06);
+    }
+    .lang-selector button {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border: none;
+      background: transparent;
+      color: var(--marron-mid);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-selector button:hover { color: var(--marron); }
+    .lang-selector button.active {
+      background: var(--terracota);
+      color: #FAF5EC;
+      box-shadow: 0 2px 8px rgba(184,92,58,0.25);
+    }
+    .lang-selector button .flag { font-size: 15px; line-height: 1; }
+
+    /* Back link */
+    .back-link-wrap {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 2.5rem;
+    }
+    .back-link {
+      font-size: 12px;
+      color: var(--marron-mid);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover { color: var(--terracota); }
+    .back-link .arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .back-link:hover .arrow { transform: translateX(-3px); }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin: 1rem 0 2.5rem;
+    }
+    .logo {
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--marron-light);
+      text-transform: uppercase;
+      margin: 2rem 0 0.75rem;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 44px;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--marron);
+      margin: 0;
+      letter-spacing: -0.015em;
+      font-variation-settings: "SOFT" 100, "opsz" 144;
+    }
+
+    /* WhatsApp banner */
+    .whatsapp-banner {
+      border-top: 0.5px solid var(--linea);
+      border-bottom: 0.5px solid var(--linea);
+      padding: 1.4rem 0;
+      margin: 3rem 0;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .whatsapp-banner .wa-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--verde);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .whatsapp-banner .wa-link {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 18px;
+      color: var(--marron);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .whatsapp-banner .wa-link .arr {
+      color: var(--verde);
+      margin-left: 6px;
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .whatsapp-banner:hover .wa-link .arr { transform: translateX(5px); }
+    .whatsapp-banner .wa-sub {
+      font-size: 13px;
+      color: var(--marron-light);
+      margin-top: 10px;
+      font-style: italic;
+      line-height: 1.5;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--terracota);
+      text-transform: uppercase;
+      text-align: center;
+      margin: 3.5rem 0 1.5rem;
+      font-weight: 500;
+    }
+    .section-title::before,
+    .section-title::after {
+      content: "·";
+      color: var(--terracota);
+      margin: 0 12px;
+      opacity: 0.6;
+    }
+
+    /* Body */
+    .content { font-size: 16px; }
+    .content p {
+      line-height: 1.8;
+      color: var(--marron);
+      margin: 0 0 1.2rem;
+    }
+    .content p.first::first-letter {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 58px;
+      float: left;
+      line-height: 0.85;
+      padding: 8px 12px 0 0;
+      color: var(--terracota);
+      font-weight: 400;
+    }
+
+    /* ============ WORDS BOX — framed section ============ */
+    .words-section {
+      margin: 2rem 0;
+    }
+    .words-box {
+      background: var(--crema-mid);
+      border: 0.5px solid var(--linea);
+      border-radius: 10px;
+      padding: 1.75rem 1.75rem 1.5rem;
+      box-shadow: 0 1px 2px rgba(46,26,14,0.03);
+    }
+    .word {
+      padding: 1rem 0;
+      border-bottom: 0.5px solid var(--linea-soft);
+    }
+    .word:first-child { padding-top: 0.25rem; }
+    .word:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+    .word .term-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .word .term {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 20px;
+      color: var(--terracota);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.1;
+      letter-spacing: -0.005em;
+    }
+    .word .gloss {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--marron-light);
+      font-size: 10.5px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .word .ctx {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--marron);
+      margin-top: 2px;
+    }
+    .word .ctx em {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      color: var(--marron-mid);
+    }
+    .word.simple .ctx { display: none; }
+
+    .missing-note {
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--marron-light);
+      font-style: italic;
+      margin-top: 1.5rem;
+    }
+
+    /* Pull quote */
+    .quote {
+      text-align: center;
+      margin: 2rem 0 2.5rem;
+      padding: 0 1rem;
+    }
+    .quote::before {
+      content: "\201C";
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 80px;
+      color: var(--terracota);
+      line-height: 0.5;
+      display: block;
+      opacity: 0.45;
+      margin-bottom: 12px;
+    }
+    .quote .q-text {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 25px;
+      line-height: 1.4;
+      color: var(--marron);
+      font-style: italic;
+      font-weight: 400;
+      margin: 0;
+    }
+    .quote .q-sub {
+      margin-top: 1rem;
+      font-size: 13.5px;
+      color: var(--marron-light);
+      font-style: italic;
+    }
+    .quote-intro {
+      text-align: center;
+      font-size: 14px;
+      color: var(--marron-light);
+      margin: 0 0 1rem;
+      font-style: italic;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid var(--linea);
+    }
+    .footer .next {
+      font-size: 13.5px;
+      color: var(--marron-mid);
+      letter-spacing: 0.03em;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .footer .sign {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 30px;
+      font-style: italic;
+      color: var(--terracota);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+    .footer .sign-sub {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--marron-light);
+      text-transform: uppercase;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+
+    .lang-content.hidden { display: none; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 1.25rem 3rem; }
+      .lang-selector button { font-size: 13px; padding: 9px 18px; }
+      .back-link { font-size: 11px; }
+      .logo { max-width: 130px; }
+      .hero h1 { font-size: 34px; }
+      .eyebrow { font-size: 10.5px; }
+      .whatsapp-banner { margin: 2rem 0; }
+      .whatsapp-banner .wa-link { font-size: 16px; }
+      .whatsapp-banner .wa-sub { font-size: 12.5px; }
+      .section-title { margin: 2.5rem 0 1.25rem; font-size: 10.5px; letter-spacing: 0.25em; }
+      .content { font-size: 15.5px; }
+      .content p.first::first-letter { font-size: 48px; padding: 6px 10px 0 0; }
+      .words-box { padding: 1.25rem 1.25rem 1rem; }
+      .word { padding: 0.85rem 0; }
+      .word .term { font-size: 18px; }
+      .word .gloss { font-size: 10px; letter-spacing: 0.12em; }
+      .word .ctx { font-size: 13.5px; }
+      .quote .q-text { font-size: 21px; }
+      .quote::before { font-size: 64px; }
+      .footer .sign { font-size: 26px; }
+      .footer { margin-top: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LANGUAGE SELECTOR -->
+  <div class="lang-selector-wrap">
+    <div class="lang-selector" role="group" aria-label="Choose language / Elegí idioma">
+      <button type="button" id="btn-en" class="active" onclick="setLang('en')">
+        <span class="flag" aria-hidden="true">🇺🇸</span>
+        <span>English</span>
+      </button>
+      <button type="button" id="btn-es" onclick="setLang('es')">
+        <span class="flag" aria-hidden="true">🇪🇸</span>
+        <span>Español</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Back link -->
+  <div class="back-link-wrap">
+    <a href="https://speakspanishway.com/" class="back-link">
+      <span class="arrow">&larr;</span>
+      <span class="lang-content lang-en">Back to home</span>
+      <span class="lang-content lang-es hidden">Volver al inicio</span>
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="hablemos-logo.png" alt="Hablemos — Cultura, Comunidad, Conversación" class="logo">
+    <div class="eyebrow">
+      <span class="lang-content lang-en">Session one &middot; October 2026</span>
+      <span class="lang-content lang-es hidden">Sesión uno &middot; Octubre 2026</span>
+    </div>
+    <h1>
+      <span class="lang-content lang-en">Words that matter</span>
+      <span class="lang-content lang-es hidden">Palabras que importan</span>
+    </h1>
+  </div>
+
+  <!-- WHATSAPP BANNER -->
+  <a href="https://chat.whatsapp.com/Eu9pVeWxISe4T8Y7ye6SUq?mode=gi_t" class="whatsapp-banner" target="_blank" rel="noopener">
+    <div class="wa-label">
+      <span class="lang-content lang-en">The WhatsApp group</span>
+      <span class="lang-content lang-es hidden">El grupo de WhatsApp</span>
+    </div>
+    <div class="wa-link">
+      <span class="lang-content lang-en">Join the Hablemos group<span class="arr">&rarr;</span></span>
+      <span class="lang-content lang-es hidden">Sumate al grupo de Hablemos<span class="arr">&rarr;</span></span>
+    </div>
+    <div class="wa-sub">
+      <span class="lang-content lang-en">A relaxed space to share — talks, words, and curiosities. If you want to practice your Spanish, this is the perfect place.</span>
+      <span class="lang-content lang-es hidden">Un espacio relajado para compartir — charlas, palabras y curiosidades. Si querés practicar español, este es el espacio perfecto.</span>
+    </div>
+  </a>
+
+  <!-- ============== ENGLISH VERSION ============== -->
+  <div class="lang-content lang-en">
+
+    <div class="section-title">Welcome</div>
+    <div class="content">
+      <p class="first"><em>Fue un placer conocerlos.</em> Thank you for showing up on Monday &mdash; and for bringing your words. I heard beautiful stories during the session, and in the breakout rooms you shared pieces of your own relationship with Spanish: how you learned it, with whom, why it matters to you now. Those conversations are the program.</p>
+      <p>What happened on Monday was something particular. It was a conversation between people who, for different reasons, carry Spanish inside them &mdash; as a first language, as a heritage, as something being built right now.</p>
+      <p>In the coming sessions we'll explore new themes and try different dynamics &mdash; other ways of organizing breakouts, other ways of entering the culture. This is only the beginning.</p>
+      <p>One space, once a month. Twelve months. We begin.</p>
+    </div>
+
+    <div class="section-title">This month</div>
+    <div class="content">
+      <p>We looked at Hispanic cultures through a specific lens: words.</p>
+      <p>Not vocabulary in the textbook sense. Words that mean something to us &mdash; because of a memory, because of how they sound, because they carry a piece of where we come from, or where we want to go.</p>
+      <p>Each of you brought one. Some of you brought more than one, in the breakouts.</p>
+    </div>
+
+    <div class="section-title">The words we shared</div>
+    <div class="words-section">
+      <div class="words-box">
+        <div class="word">
+          <div class="term-row"><span class="term">abuelita</span><span class="gloss">grandma</span></div>
+          <div class="ctx">The name her grandchildren call her by.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">sobremesa</span><span class="gloss">after-meal talk</span></div>
+          <div class="ctx">That stretch of time after the meal, when the real conversations happen.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">florecer</span><span class="gloss">to bloom</span></div>
+          <div class="ctx">A plant blooming, and something personal behind it too.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">pupusa</span><span class="gloss">salvadoran dish</span></div>
+          <div class="ctx">A food, and a direct line back to roots in El Salvador.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">guagua</span><span class="gloss">the bus</span></div>
+          <div class="ctx">Cuban transportation.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">esperanza</span><span class="gloss">hope / wait / expect</span></div>
+          <div class="ctx">A word that carries <em>hope</em>, <em>wait</em>, and <em>expect</em> all at once. English separates them. Spanish doesn't.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">travesura</span><span class="gloss">mischief</span></div>
+          <div class="ctx">For how it sounds, and for childhood memories.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">bueno</span><span class="gloss">good</span></div>
+          <div class="ctx">Because he loves Kinder Bueno chocolate.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">aseré</span><span class="gloss">buddy, friend</span></div>
+          <div class="ctx">A Cuban way of calling a friend. Like "parce" in Colombia, or "pana" in Venezuela.</div>
+        </div>
+        <div class="word simple">
+          <div class="term-row"><span class="term">orgullosa</span><span class="gloss">proud</span></div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">agradecida</span><span class="gloss">grateful</span></div>
+          <div class="ctx">Brought by one of the participants, who said it matters to stay in that place: to keep gratitude close.</div>
+        </div>
+        <div class="word simple">
+          <div class="term-row"><span class="term">contenta</span><span class="gloss">content, happy</span></div>
+        </div>
+        <div class="word simple">
+          <div class="term-row"><span class="term">avellana</span><span class="gloss">hazelnut</span></div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">alegría</span><span class="gloss">joy</span></div>
+          <div class="ctx">A kind of happiness that lives on the outside &mdash; the one you can hear in someone's voice.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">mate</span><span class="gloss">shared drink</span></div>
+          <div class="ctx">More than a drink: a shared moment, a conversation, friendship. From Argentina, Uruguay, Paraguay, and southern Brazil.</div>
+        </div>
+      </div>
+      <div class="missing-note">Did we miss one of yours? Share it in the WhatsApp group — there's still time.</div>
+    </div>
+
+    <div class="section-title">A moment to keep</div>
+    <div class="content">
+      <p>What stood out — beyond the words themselves — was what emerged in the breakouts.</p>
+      <p>People talking about their grandparents. About the Spanish they learned at the kitchen table. About the Spanish they're learning now, as adults, by their own choice. About why any of this matters.</p>
+      <p>That's the whole point of Hablemos. The words are the excuse. What's shared around them is the program.</p>
+    </div>
+
+    <div class="section-title">The question of the month</div>
+    <p class="quote-intro">To carry with you until the next session:</p>
+    <div class="quote">
+      <div class="q-text">What other word would you place next to yours?</div>
+      <div class="q-sub">It can be a word that came up today, or any other word, in any language.</div>
+    </div>
+
+    <div class="footer">
+      <div class="next">See you in <strong>November</strong> for Session 2.<br>Date to be confirmed soon.</div>
+      <div class="sign">José Etulain</div>
+      <div class="sign-sub">Hablemos</div>
+    </div>
+
+  </div>
+
+  <!-- ============== SPANISH VERSION ============== -->
+  <div class="lang-content lang-es hidden">
+
+    <div class="section-title">Bienvenida</div>
+    <div class="content">
+      <p class="first">Fue un placer conocerlos. Gracias por haber estado el lunes &mdash; y por haber traído sus palabras. Escuché historias hermosas durante la sesión, y en las salas pequeñas me contaron de su propia relación con el español: cómo lo aprendieron, con quién, por qué les importa ahora. Esas conversaciones son el programa.</p>
+      <p>Lo que pasó el lunes fue algo particular. Fue una conversación entre personas que, por distintos motivos, llevan el español adentro: como primera lengua, como herencia, como algo que están construyendo ahora.</p>
+      <p>En las próximas sesiones vamos a abordar nuevos temas y probar distintas dinámicas &mdash; otras formas de organizar los grupos, otras maneras de entrar a la cultura. Esto es apenas el comienzo.</p>
+      <p>Un espacio al mes. Doce meses. Empezamos.</p>
+    </div>
+
+    <div class="section-title">De qué hablamos este mes</div>
+    <div class="content">
+      <p>Miramos las culturas hispanas a través de una ventana específica: las palabras.</p>
+      <p>No el vocabulario de los libros. Palabras que significan algo para nosotros &mdash; por un recuerdo, por cómo suenan, por lo que cargan de dónde venimos, o de dónde queremos ir.</p>
+      <p>Cada uno trajo una. Algunos trajeron más de una, en los grupos pequeños.</p>
+    </div>
+
+    <div class="section-title">Las palabras que compartimos</div>
+    <div class="words-section">
+      <div class="words-box">
+        <div class="word">
+          <div class="term-row"><span class="term">abuelita</span><span class="gloss">grandma</span></div>
+          <div class="ctx">Así la llaman sus nietos.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">sobremesa</span><span class="gloss">after-meal talk</span></div>
+          <div class="ctx">Ese rato después de la comida, cuando aparecen las charlas de verdad.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">florecer</span><span class="gloss">to bloom</span></div>
+          <div class="ctx">Una planta floreciendo, y algo personal también detrás.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">pupusa</span><span class="gloss">salvadoran dish</span></div>
+          <div class="ctx">Una comida, y una línea directa a sus raíces en El Salvador.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">guagua</span><span class="gloss">the bus</span></div>
+          <div class="ctx">El transporte cubano.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">esperanza</span><span class="gloss">hope / wait / expect</span></div>
+          <div class="ctx">Una palabra que lleva las tres adentro. El inglés las separa. El español no.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">travesura</span><span class="gloss">mischief</span></div>
+          <div class="ctx">Por cómo suena, y por los recuerdos de la infancia.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">bueno</span><span class="gloss">good</span></div>
+          <div class="ctx">Porque le gusta el chocolate Kinder Bueno.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">aseré</span><span class="gloss">buddy, friend</span></div>
+          <div class="ctx">Forma cubana de decirle a un amigo. Como "parce" en Colombia, o "pana" en Venezuela.</div>
+        </div>
+        <div class="word simple">
+          <div class="term-row"><span class="term">orgullosa</span><span class="gloss">proud</span></div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">agradecida</span><span class="gloss">grateful</span></div>
+          <div class="ctx">La trajo una participante, que dijo que es importante quedarse ahí: mantener la gratitud cerca.</div>
+        </div>
+        <div class="word simple">
+          <div class="term-row"><span class="term">contenta</span><span class="gloss">content, happy</span></div>
+        </div>
+        <div class="word simple">
+          <div class="term-row"><span class="term">avellana</span><span class="gloss">hazelnut</span></div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">alegría</span><span class="gloss">joy</span></div>
+          <div class="ctx">Una felicidad que vive hacia afuera &mdash; la que se escucha en la voz de alguien.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">mate</span><span class="gloss">shared drink</span></div>
+          <div class="ctx">Más que una bebida: un momento compartido, una charla, amistad. De Argentina, Uruguay, Paraguay y el sur de Brasil.</div>
+        </div>
+      </div>
+      <div class="missing-note">¿Nos faltó alguna de las tuyas? Compartila en el grupo de WhatsApp — todavía vale.</div>
+    </div>
+
+    <div class="section-title">Un momento para guardar</div>
+    <div class="content">
+      <p>Lo que sobresalió — más allá de las palabras — fue lo que apareció en los grupos pequeños.</p>
+      <p>Gente hablando de sus abuelos. Del español que aprendieron en la mesa de la cocina. Del español que están aprendiendo ahora, de adultos, por decisión propia. De por qué todo esto importa.</p>
+      <p>Eso es Hablemos. Las palabras son la excusa. Lo que se comparte alrededor es el programa.</p>
+    </div>
+
+    <div class="section-title">La pregunta del mes</div>
+    <p class="quote-intro">Para llevarse puesta hasta la próxima sesión:</p>
+    <div class="quote">
+      <div class="q-text">¿Qué otra palabra pondrían al lado de la de ustedes?</div>
+      <div class="q-sub">Puede ser una palabra que apareció hoy, o cualquier otra palabra, en el idioma que sea.</div>
+    </div>
+
+    <div class="footer">
+      <div class="next">Nos vemos en <strong>noviembre</strong> para la Sesión 2.<br>Fecha a confirmar pronto.</div>
+      <div class="sign">José Etulain</div>
+      <div class="sign-sub">Hablemos</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    var enEls = document.querySelectorAll('.lang-en');
+    var esEls = document.querySelectorAll('.lang-es');
+    var btnEn = document.getElementById('btn-en');
+    var btnEs = document.getElementById('btn-es');
+
+    if (lang === 'es') {
+      enEls.forEach(function(el) { el.classList.add('hidden'); });
+      esEls.forEach(function(el) { el.classList.remove('hidden'); });
+      btnEn.classList.remove('active');
+      btnEs.classList.add('active');
+      document.documentElement.setAttribute('lang', 'es');
+      try { localStorage.setItem('hablemos-lang', 'es'); } catch(e) {}
+    } else {
+      esEls.forEach(function(el) { el.classList.add('hidden'); });
+      enEls.forEach(function(el) { el.classList.remove('hidden'); });
+      btnEs.classList.remove('active');
+      btnEn.classList.add('active');
+      document.documentElement.setAttribute('lang', 'en');
+      try { localStorage.setItem('hablemos-lang', 'en'); } catch(e) {}
+    }
+  }
+
+  try {
+    var saved = localStorage.getItem('hablemos-lang');
+    if (saved === 'es') setLang('es');
+  } catch(e) {}
+</script>
+
+</body>
+</html>
