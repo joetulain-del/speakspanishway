@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hablemos — Session 2 · What we celebrate</title>
+  <meta name="description" content="Hablemos — monthly cultural and language program. Session 2 recap.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --terracota: #B85C3A;
+      --terracota-dark: #8E4225;
+      --verde: #2D7A5F;
+      --verde-light: #4A9476;
+      --crema: #F7F0E3;
+      --crema-dark: #EADFCB;
+      --crema-mid: #F0E6D1;
+      --marron: #2E1A0E;
+      --marron-mid: #6B4A2E;
+      --marron-light: #8B6B4E;
+      --linea: #D9C9AE;
+      --linea-soft: #E5D5BC;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--crema);
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(184,92,58,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(45,122,95,0.025) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.08 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+      color: var(--marron);
+      font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ============ TOP HEADER: logo left + lang selector right ============ */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .logo-link {
+      display: inline-block;
+      line-height: 0;
+    }
+    .logo {
+      width: 110px;
+      height: auto;
+      display: block;
+    }
+    .lang-selector {
+      display: inline-flex;
+      background: var(--crema-dark);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 2px;
+      box-shadow: inset 0 1px 2px rgba(46,26,14,0.06);
+    }
+    .lang-selector button {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 8px 18px;
+      border: none;
+      background: transparent;
+      color: var(--marron-mid);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lang-selector button:hover { color: var(--marron); }
+    .lang-selector button.active {
+      background: var(--terracota);
+      color: #FAF5EC;
+      box-shadow: 0 2px 8px rgba(184,92,58,0.25);
+    }
+    .lang-selector button .flag { font-size: 14px; line-height: 1; }
+
+    /* Back link */
+    .back-link-wrap {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 3.5rem;
+    }
+    .back-link {
+      font-size: 12px;
+      color: var(--marron-mid);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover { color: var(--terracota); }
+    .back-link .arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .back-link:hover .arrow { transform: translateX(-3px); }
+
+    /* Hero — title centered, big */
+    .hero {
+      text-align: center;
+      margin: 2rem 0 3rem;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--marron-light);
+      text-transform: uppercase;
+      margin: 0 0 1rem;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--marron);
+      margin: 0;
+      letter-spacing: -0.02em;
+      font-variation-settings: "SOFT" 100, "opsz" 144;
+    }
+    .hero-sub {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--marron-mid);
+      font-weight: 300;
+      margin: 1.1rem 0 0;
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+    }
+
+    /* WhatsApp CTA block */
+    .whatsapp-block {
+      margin: 2.5rem auto;
+      text-align: center;
+      padding: 1.5rem 1.5rem 1.75rem;
+      background: var(--crema-mid);
+      border: 0.5px solid var(--linea);
+      border-radius: 12px;
+      max-width: 520px;
+    }
+    .whatsapp-block .wa-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--verde);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .whatsapp-block .wa-headline {
+      font-size: 15px;
+      color: var(--marron);
+      font-weight: 400;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .whatsapp-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--verde);
+      color: #F7F0E3;
+      text-decoration: none;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 12px 24px;
+      border-radius: 999px;
+      box-shadow: 0 2px 10px rgba(45,122,95,0.25);
+      transition: all 0.2s ease;
+    }
+    .whatsapp-cta:hover {
+      background: #246349;
+      box-shadow: 0 4px 14px rgba(45,122,95,0.35);
+      transform: translateY(-1px);
+    }
+    .whatsapp-cta:active { transform: translateY(0); }
+    .whatsapp-cta .wa-icon {
+      font-size: 16px;
+      line-height: 1;
+    }
+    .whatsapp-cta .arr {
+      display: inline-block;
+      transition: transform 0.2s ease;
+      font-size: 15px;
+    }
+    .whatsapp-cta:hover .arr { transform: translateX(4px); }
+
+    /* Section titles */
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--terracota);
+      text-transform: uppercase;
+      text-align: center;
+      margin: 3.5rem 0 1.5rem;
+      font-weight: 500;
+    }
+    .section-title::before,
+    .section-title::after {
+      content: "·";
+      color: var(--terracota);
+      margin: 0 12px;
+      opacity: 0.6;
+    }
+
+    /* Body */
+    .content { font-size: 16px; }
+    .content p {
+      line-height: 1.8;
+      color: var(--marron);
+      margin: 0 0 1.2rem;
+    }
+    .content p.first::first-letter {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 58px;
+      float: left;
+      line-height: 0.85;
+      padding: 8px 12px 0 0;
+      color: var(--terracota);
+      font-weight: 400;
+    }
+    .content em.sp {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      color: var(--terracota-dark);
+    }
+
+    /* ============ WORDS BOX — framed section ============ */
+    .words-section {
+      margin: 2rem 0;
+    }
+    .words-box {
+      background: var(--crema-mid);
+      border: 0.5px solid var(--linea);
+      border-radius: 10px;
+      padding: 1.75rem 1.75rem 1.5rem;
+      box-shadow: 0 1px 2px rgba(46,26,14,0.03);
+    }
+    .word {
+      padding: 1rem 0;
+      border-bottom: 0.5px solid var(--linea-soft);
+    }
+    .word:first-child { padding-top: 0.25rem; }
+    .word:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+    .word .term-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .word .term {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 20px;
+      color: var(--terracota);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.1;
+      letter-spacing: -0.005em;
+    }
+    .word .gloss {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--marron-light);
+      font-size: 10.5px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .word .ctx {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--marron);
+      margin-top: 2px;
+    }
+    .word .ctx em {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      color: var(--marron-mid);
+    }
+    .word.simple .ctx { display: none; }
+
+    /* Pull quote — framed box */
+    .quote-intro {
+      text-align: center;
+      font-size: 14px;
+      color: var(--marron-light);
+      margin: 0 0 1.25rem;
+      font-style: italic;
+    }
+    .quote {
+      text-align: center;
+      margin: 1rem 0 0;
+      padding: 2.5rem 2rem 2rem;
+      background: var(--crema-mid);
+      border: 0.5px solid var(--linea);
+      border-radius: 12px;
+      position: relative;
+    }
+    .quote::before {
+      content: "\201C";
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 90px;
+      color: var(--terracota);
+      line-height: 0.4;
+      display: block;
+      opacity: 0.5;
+      margin-bottom: 18px;
+    }
+    .quote .q-text {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--marron);
+      font-style: italic;
+      font-weight: 400;
+      margin: 0 auto;
+      max-width: 480px;
+      letter-spacing: -0.005em;
+    }
+    .quote .q-sub {
+      margin-top: 1.25rem;
+      font-size: 14px;
+      color: var(--marron-mid);
+      font-style: italic;
+      line-height: 1.5;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .quote-cta-wrap {
+      text-align: center;
+      margin: 1.75rem 0 0;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid var(--linea-soft);
+    }
+    .quote-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--verde);
+      text-decoration: none;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      padding: 9px 18px;
+      border: 0.5px solid var(--verde);
+      border-radius: 999px;
+      background: #F7F0E3;
+      transition: all 0.2s ease;
+    }
+    .quote-cta:hover {
+      background: var(--verde);
+      color: #F7F0E3;
+      box-shadow: 0 2px 8px rgba(45,122,95,0.2);
+    }
+    .quote-cta .wa-icon { font-size: 14px; line-height: 1; }
+    .quote-cta .arr {
+      display: inline-block;
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+    .quote-cta:hover .arr { transform: translateX(3px); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid var(--linea);
+    }
+    .footer .next {
+      font-size: 13.5px;
+      color: var(--marron-mid);
+      letter-spacing: 0.03em;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .footer .sign {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 30px;
+      font-style: italic;
+      color: var(--terracota);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+    .footer .sign-sub {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--marron-light);
+      text-transform: uppercase;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+    .footer-logo-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      opacity: 0.75;
+    }
+    .footer-logo {
+      width: 70px;
+      height: auto;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+    .footer-logo:hover { opacity: 1; }
+
+    .lang-content.hidden { display: none; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .container { padding: 1.25rem 1.25rem 3rem; }
+      .top-header { margin-bottom: 1.25rem; }
+      .logo { width: 75px; }
+      .lang-selector button { font-size: 12px; padding: 7px 14px; }
+      .lang-selector button .flag { font-size: 13px; }
+      .back-link { font-size: 11px; }
+      .back-link-wrap { margin-bottom: 2.5rem; }
+      .hero { margin: 1.5rem 0 2.5rem; }
+      .hero h1 { font-size: 40px; }
+      .hero-sub { font-size: 17px; margin-top: 0.85rem; }
+      .eyebrow { font-size: 10.5px; }
+      .whatsapp-block { margin: 2rem 0; padding: 1.5rem 1.25rem; }
+      .whatsapp-block .wa-headline { font-size: 14px; }
+      .whatsapp-cta { font-size: 14px; padding: 13px 22px; }
+      .section-title { margin: 2.5rem 0 1.25rem; font-size: 10.5px; letter-spacing: 0.25em; }
+      .content { font-size: 15.5px; }
+      .content p.first::first-letter { font-size: 48px; padding: 6px 10px 0 0; }
+      .words-box { padding: 1.25rem 1.25rem 1rem; }
+      .word { padding: 0.85rem 0; }
+      .word .term { font-size: 18px; }
+      .word .gloss { font-size: 10px; letter-spacing: 0.12em; }
+      .word .ctx { font-size: 13.5px; }
+      .quote { padding: 2rem 1.25rem 1.5rem; }
+      .quote .q-text { font-size: 20px; }
+      .quote .q-sub { font-size: 13px; }
+      .quote::before { font-size: 72px; }
+      .quote-cta { font-size: 12.5px; padding: 8px 14px; }
+      .footer .sign { font-size: 26px; }
+      .footer { margin-top: 3rem; }
+      .footer-logo { width: 55px; }
+      .footer-logo-row { margin-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TOP HEADER: logo left, language selector right -->
+  <div class="top-header">
+    <a href="https://speakspanishway.com/" class="logo-link" aria-label="Speak Spanish Way">
+      <img src="hablemos-logo.png" alt="Hablemos — Cultura, Comunidad, Conversación" class="logo">
+    </a>
+    <div class="lang-selector" role="group" aria-label="Choose language / Elegí idioma">
+      <button type="button" id="btn-en" class="active" onclick="setLang('en')">
+        <span class="flag" aria-hidden="true">🇺🇸</span>
+        <span>English</span>
+      </button>
+      <button type="button" id="btn-es" onclick="setLang('es')">
+        <span class="flag" aria-hidden="true">🇪🇸</span>
+        <span>Español</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Back link -->
+  <div class="back-link-wrap">
+    <a href="https://speakspanishway.com/" class="back-link">
+      <span class="arrow">&larr;</span>
+      <span class="lang-content lang-en">Back to home</span>
+      <span class="lang-content lang-es hidden">Volver al inicio</span>
+    </a>
+  </div>
+
+  <!-- HERO: title centered -->
+  <div class="hero">
+    <div class="eyebrow">
+      <span class="lang-content lang-en">Session two &middot; November 17, 2026</span>
+      <span class="lang-content lang-es hidden">Sesión dos &middot; 17 de Noviembre 2026</span>
+    </div>
+    <h1>
+      <span class="lang-content lang-en">What we celebrate</span>
+      <span class="lang-content lang-es hidden">Lo que celebramos</span>
+    </h1>
+    <div class="hero-sub">
+      <span class="lang-content lang-en">Where traditions cross</span>
+      <span class="lang-content lang-es hidden">Donde se cruzan las tradiciones</span>
+    </div>
+  </div>
+
+  <!-- WHATSAPP CTA BLOCK -->
+  <div class="whatsapp-block">
+    <div class="wa-label">
+      <span class="lang-content lang-en">The WhatsApp group</span>
+      <span class="lang-content lang-es hidden">El grupo de WhatsApp</span>
+    </div>
+    <div class="wa-headline">
+      <span class="lang-content lang-en">A relaxed space to share — talks, words, and curiosities. If you want to practice your Spanish, this is the perfect place.</span>
+      <span class="lang-content lang-es hidden">Un espacio relajado para compartir — charlas, palabras y curiosidades. Si querés practicar español, este es el espacio perfecto.</span>
+    </div>
+    <a href="https://chat.whatsapp.com/Eu9pVeWxISe4T8Y7ye6SUq?mode=gi_t" class="whatsapp-cta" target="_blank" rel="noopener">
+      <span class="wa-icon" aria-hidden="true">💬</span>
+      <span class="lang-content lang-en">Click here to join the group</span>
+      <span class="lang-content lang-es hidden">Clickeá acá para ingresar al grupo</span>
+      <span class="arr" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+  <!-- ============== ENGLISH VERSION ============== -->
+  <div class="lang-content lang-en">
+
+    <div class="section-title">Welcome</div>
+    <div class="content">
+      <p class="first"><em class="sp">Gracias por haber estado el martes.</em> We got together in a particular week &mdash; between D&iacute;a de los Muertos and Thanksgiving. An in-between.</p>
+      <p>I told you a bit about how Halloween is lived here in Colombia &mdash; salsa in the street, kids and grown-ups in costume, motorcycle caravans with masks and music. Not like the Argentina I grew up in, not like the US either. Something else.</p>
+      <p>That was really the question behind the whole session: <em>what happens when traditions cross?</em></p>
+      <p>For the first time, the breakouts mixed levels &mdash; more Spanish, less Spanish, side by side. The conversations that came out of that mix were the point.</p>
+    </div>
+
+    <div class="section-title">This month</div>
+    <div class="content">
+      <p>We talked about what we celebrate.</p>
+      <p>Not as a list of holidays, but as the places where cultures touch.</p>
+      <p>D&iacute;a de los Muertos right behind us. Thanksgiving a week ahead. The session landed right in the middle &mdash; an in-between that ended up being the whole invitation.</p>
+      <p>Because celebrations don't live in sealed boxes. Little by little, it kept appearing: the Caribbean of <em>guagua</em> and <em>aser&eacute;</em>, a <em>pupusa</em> from El Salvador, the salsa danced across many countries, American Thanksgiving, Halloween with Irish roots now celebrated almost everywhere, and this time an Indian celebration too &mdash; all in the same room.</p>
+    </div>
+
+    <div class="section-title">The celebrations we shared</div>
+    <div class="words-section">
+      <div class="words-box">
+        <div class="word">
+          <div class="term-row"><span class="term">Nochebuena</span><span class="gloss">christmas eve</span></div>
+          <div class="ctx">In many Latino homes, the night that matters most. More than Christmas Day itself.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Navidad</span><span class="gloss">christmas</span></div>
+          <div class="ctx">The morning after. Quieter, or not &mdash; depending on the family.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Halloween</span><span class="gloss">halloween</span></div>
+          <div class="ctx">Someone shared a photo of their costume with the group &mdash; thank you for that, beautiful moment. In the US it's candy and doorbells; in Colombia it's salsa in the street; in this room it was a Latino ERG claiming a tradition that keeps traveling.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Thanksgiving</span><span class="gloss">d&iacute;a de gracias</span></div>
+          <div class="ctx">Next week. Many of you are already getting ready. More on that at the end.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">A&ntilde;o Nuevo</span><span class="gloss">new year's</span></div>
+          <div class="ctx">Twelve grapes, a suitcase around the block, yellow underwear. Each country has its own superstition for midnight.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Pascua</span><span class="gloss">easter</span></div>
+          <div class="ctx">Religious for some, chocolate-and-family for others.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Cumplea&ntilde;os</span><span class="gloss">birthdays</span></div>
+          <div class="ctx"><em>Las ma&ntilde;anitas</em>, a pi&ntilde;ata if there are kids, mariachi if there's budget.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Diwali</span><span class="gloss">the indian festival of lights</span></div>
+          <div class="ctx">Brought by one of the participants. Not Latino, not American &mdash; and it belonged in the conversation anyway.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">The words we carried</div>
+    <div class="words-section">
+      <div class="words-box">
+        <div class="word">
+          <div class="term-row"><span class="term">familia</span><span class="gloss">family</span></div>
+          <div class="ctx">The one that came up most. For most of you, the center of what celebration means.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">comida</span><span class="gloss">food</span></div>
+          <div class="ctx">In many shapes: the table, the recipe, the smell, the memory.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">tamales</span><span class="gloss">tamales</span></div>
+          <div class="ctx">A specific food that came up more than once. In many Latino homes, Christmas Eve starts here.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">alegr&iacute;a</span><span class="gloss">joy</span></div>
+          <div class="ctx">The outward kind. The one you can hear from across a room.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">diversi&oacute;n</span><span class="gloss">fun</span></div>
+          <div class="ctx">Celebrations as play, not obligation.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">amor</span><span class="gloss">love</span></div>
+          <div class="ctx">Said straight. The reason behind the gathering.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">momento</span><span class="gloss">moment</span></div>
+          <div class="ctx">The pause. The slice of time the celebration is for.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">pastel</span><span class="gloss">cake</span></div>
+          <div class="ctx">The sweet center. Sometimes literal, sometimes symbolic.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">A moment to keep</div>
+    <div class="content">
+      <p>One of the celebrations shared that night came from further away: Diwali, the Indian festival of lights.</p>
+      <p>Someone in the room brought it in &mdash; told us what Diwali is and why it matters. For a few minutes, the conversation held three worlds at once: Latino traditions, American traditions, and an Indian one, sharing the same space without anyone forcing the connection.</p>
+      <p>That's what Hablemos is turning out to be. Not a Spanish class. A room where what you bring has a place, even when it comes from further than anyone expected.</p>
+      <p><em>Thank you for sharing this with us.</em></p>
+    </div>
+
+    <div class="section-title">The question of the month</div>
+    <p class="quote-intro">To carry with you through the week:</p>
+    <div class="quote">
+      <div class="q-text">Next week is Thanksgiving. Is there a detail that makes yours different? How will you celebrate it?</div>
+      <div class="q-sub">Maybe there's a Latino element on your table. Maybe something from another culture. Maybe something only your family does. Bring us into your Thursday.</div>
+      <div class="quote-cta-wrap">
+        <a href="https://chat.whatsapp.com/Eu9pVeWxISe4T8Y7ye6SUq?mode=gi_t" class="quote-cta" target="_blank" rel="noopener">
+          <span class="wa-icon" aria-hidden="true">💬</span>
+          <span>Share it in the Hablemos WhatsApp group</span>
+          <span class="arr" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="next">See you in <strong>mid-December</strong> for Session 3.<br>Date to be confirmed soon.</div>
+      <div class="sign">José Etulain</div>
+      <div class="sign-sub">Hablemos</div>
+    </div>
+
+  </div>
+
+  <!-- ============== SPANISH VERSION ============== -->
+  <div class="lang-content lang-es hidden">
+
+    <div class="section-title">Bienvenida</div>
+    <div class="content">
+      <p class="first">Gracias por haber estado el martes. Nos juntamos en una semana particular &mdash; entre D&iacute;a de los Muertos y Thanksgiving. Un entremedio.</p>
+      <p>Les cont&eacute; un poco c&oacute;mo se vive el Halloween ac&aacute; en Colombia &mdash; salsa en la calle, chicos y grandes disfrazados, caravanas de motos con m&aacute;scaras y m&uacute;sica. No es como la Argentina en la que crec&iacute;, tampoco como EE.UU. Es otra cosa.</p>
+      <p>Esa fue la pregunta de fondo de toda la sesi&oacute;n: <em>&iquest;qu&eacute; pasa cuando las tradiciones se cruzan?</em></p>
+      <p>Por primera vez, los breakouts mezclaron niveles &mdash; m&aacute;s espa&ntilde;ol, menos espa&ntilde;ol, uno al lado del otro. Las conversaciones que salieron de esa mezcla fueron el punto.</p>
+    </div>
+
+    <div class="section-title">De qué hablamos este mes</div>
+    <div class="content">
+      <p>Hablamos de lo que celebramos.</p>
+      <p>No como una lista de fechas, sino como los lugares donde las culturas se tocan.</p>
+      <p>D&iacute;a de los Muertos reci&eacute;n atr&aacute;s. Thanksgiving a una semana. La sesi&oacute;n cay&oacute; justo en el medio &mdash; un entremedio que termin&oacute; siendo toda la invitaci&oacute;n.</p>
+      <p>Porque las celebraciones no viven en cajas cerradas. Poco a poco fue apareciendo: el Caribe de la <em>guagua</em> y el <em>aser&eacute;</em>, una <em>pupusa</em> salvadore&ntilde;a, la salsa que se baila en muchos pa&iacute;ses, el Thanksgiving americano, el Halloween de ra&iacute;ces irlandesas celebrado hoy en tantos lugares, y esta vez una celebraci&oacute;n de la India &mdash; todo en la misma sala.</p>
+    </div>
+
+    <div class="section-title">Las celebraciones que compartimos</div>
+    <div class="words-section">
+      <div class="words-box">
+        <div class="word">
+          <div class="term-row"><span class="term">Nochebuena</span><span class="gloss">christmas eve</span></div>
+          <div class="ctx">En muchos hogares latinos, la noche que m&aacute;s importa. M&aacute;s que el 25.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Navidad</span><span class="gloss">christmas</span></div>
+          <div class="ctx">La ma&ntilde;ana siguiente. M&aacute;s tranquila, o no &mdash; seg&uacute;n la familia.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Halloween</span><span class="gloss">halloween</span></div>
+          <div class="ctx">Alguien compartió su foto de disfraz con el grupo &mdash; muchas gracias por eso, hermoso momento. En EE.UU. es dulces y puerta a puerta; en Colombia es salsa en la calle; en esta sala fue un ERG latino apropi&aacute;ndose de una tradici&oacute;n que sigue viajando.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Thanksgiving</span><span class="gloss">d&iacute;a de gracias</span></div>
+          <div class="ctx">La semana que viene. Muchos ya lo est&aacute;n preparando. Volvemos a esto al final.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">A&ntilde;o Nuevo</span><span class="gloss">new year's</span></div>
+          <div class="ctx">Doce uvas, valija por la cuadra, calz&oacute;n amarillo. Cada pa&iacute;s tiene su c&aacute;bala para las doce.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Pascua</span><span class="gloss">easter</span></div>
+          <div class="ctx">Religiosa para algunos, chocolate-y-familia para otros.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Cumplea&ntilde;os</span><span class="gloss">birthday</span></div>
+          <div class="ctx">Las ma&ntilde;anitas, pi&ntilde;ata si hay chicos, mariachi si hay presupuesto.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">Diwali</span><span class="gloss">festival de las luces de india</span></div>
+          <div class="ctx">Lo trajo uno de los participantes. No es latina, no es americana &mdash; y aun as&iacute; ten&iacute;a lugar en la conversaci&oacute;n.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Las palabras que llevamos</div>
+    <div class="words-section">
+      <div class="words-box">
+        <div class="word">
+          <div class="term-row"><span class="term">familia</span><span class="gloss">family</span></div>
+          <div class="ctx">La que m&aacute;s se repiti&oacute;. Para la mayor&iacute;a, el centro de lo que significa celebrar.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">comida</span><span class="gloss">food</span></div>
+          <div class="ctx">En muchas formas: la mesa, la receta, el aroma, el recuerdo.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">tamales</span><span class="gloss">tamales</span></div>
+          <div class="ctx">Una comida espec&iacute;fica que se nombr&oacute; m&aacute;s de una vez. En muchas casas latinas, Nochebuena arranca por ac&aacute;.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">alegr&iacute;a</span><span class="gloss">joy</span></div>
+          <div class="ctx">La que se nota hacia afuera. La que se escucha del otro lado de la sala.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">diversi&oacute;n</span><span class="gloss">fun</span></div>
+          <div class="ctx">Celebrar como juego, no como obligaci&oacute;n.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">amor</span><span class="gloss">love</span></div>
+          <div class="ctx">Dicho directo. La raz&oacute;n detr&aacute;s del encuentro.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">momento</span><span class="gloss">moment</span></div>
+          <div class="ctx">La pausa. El pedazo de tiempo para el que existe la celebraci&oacute;n.</div>
+        </div>
+        <div class="word">
+          <div class="term-row"><span class="term">pastel</span><span class="gloss">cake</span></div>
+          <div class="ctx">El centro dulce. A veces literal, a veces simb&oacute;lico.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Un momento para guardar</div>
+    <div class="content">
+      <p>Una de las celebraciones que se comparti&oacute; esa noche ven&iacute;a de m&aacute;s lejos: Diwali, el festival de las luces de India.</p>
+      <p>Alguien en la sala lo trajo &mdash; nos cont&oacute; qu&eacute; es Diwali y por qu&eacute; importa. Por unos minutos, la conversaci&oacute;n sostuvo tres mundos al mismo tiempo: tradiciones latinas, tradiciones americanas, y una india, compartiendo el mismo espacio sin que nadie forzara la conexi&oacute;n.</p>
+      <p>Eso es lo que Hablemos est&aacute; empezando a ser. No una clase de espa&ntilde;ol. Una sala donde lo que vos tra&eacute;s tiene lugar, incluso cuando viene de m&aacute;s lejos de lo que nadie esperaba.</p>
+      <p><em>Muchas gracias por compartirlo con nosotros.</em></p>
+    </div>
+
+    <div class="section-title">La pregunta del mes</div>
+    <p class="quote-intro">Para llevarse puesta toda la semana:</p>
+    <div class="quote">
+      <div class="q-text">La pr&oacute;xima semana es Thanksgiving. &iquest;Hay alg&uacute;n detalle que lo haga diferente? &iquest;C&oacute;mo lo vas a celebrar?</div>
+      <div class="q-sub">Quiz&aacute; hay algo latino en tu mesa. Quiz&aacute; algo de otra cultura. Quiz&aacute; algo que solo hace tu familia. Contanos c&oacute;mo es tu jueves.</div>
+      <div class="quote-cta-wrap">
+        <a href="https://chat.whatsapp.com/Eu9pVeWxISe4T8Y7ye6SUq?mode=gi_t" class="quote-cta" target="_blank" rel="noopener">
+          <span class="wa-icon" aria-hidden="true">💬</span>
+          <span>Comentala en el grupo de WhatsApp de Hablemos</span>
+          <span class="arr" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="next">Nos vemos a <strong>mediados de diciembre</strong> para la Sesi&oacute;n 3.<br>Fecha a confirmar pronto.</div>
+      <div class="sign">José Etulain</div>
+      <div class="sign-sub">Hablemos</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER LOGO: bottom right as a closing mark -->
+  <div class="footer-logo-row">
+    <a href="https://speakspanishway.com/" aria-label="Speak Spanish Way">
+      <img src="hablemos-logo.png" alt="Hablemos" class="footer-logo">
+    </a>
+  </div>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    var enEls = document.querySelectorAll('.lang-en');
+    var esEls = document.querySelectorAll('.lang-es');
+    var btnEn = document.getElementById('btn-en');
+    var btnEs = document.getElementById('btn-es');
+
+    if (lang === 'es') {
+      enEls.forEach(function(el) { el.classList.add('hidden'); });
+      esEls.forEach(function(el) { el.classList.remove('hidden'); });
+      btnEn.classList.remove('active');
+      btnEs.classList.add('active');
+      document.documentElement.setAttribute('lang', 'es');
+      try { localStorage.setItem('hablemos-lang', 'es'); } catch(e) {}
+    } else {
+      esEls.forEach(function(el) { el.classList.add('hidden'); });
+      enEls.forEach(function(el) { el.classList.remove('hidden'); });
+      btnEs.classList.remove('active');
+      btnEn.classList.add('active');
+      document.documentElement.setAttribute('lang', 'en');
+      try { localStorage.setItem('hablemos-lang', 'en'); } catch(e) {}
+    }
+  }
+
+  try {
+    var saved = localStorage.getItem('hablemos-lang');
+    if (saved === 'es') setLang('es');
+  } catch(e) {}
+</script>
+
+</body>
+</html>
